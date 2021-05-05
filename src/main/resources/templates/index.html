@@ -5,6 +5,23 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Bienvenido a la app</h1><span th:text="${name}"></span>
+	<h1>Bienvenido a la app</h1><span th:text="${user.email}"></span>
+	
+	<table>
+		<thead>
+			<th>Categoria</th>
+			<th>Nombre</th>
+			<th>Descripcion</th>
+			<th>Precio</th>
+		</thead>
+		<tbody th:each="producto : ${productos}">
+			<tr>
+				<td th:text="${producto.id_categoria}"></td>
+				<td th:text="${producto.nombre}"></td>
+				<td th:text="${producto.descripcion}"></td>
+				<td th:text="${producto.precio}"></td>
+			</tr>
+		</tbody>
+	</table>
 </body>
 </html>

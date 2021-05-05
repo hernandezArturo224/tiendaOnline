@@ -27,9 +27,8 @@ public class LoginController {
 		System.out.println("Email: "+us.getEmail()+" Clave: "+us.getClave());
 		
 		if(us.getEmail().equals(MAIL) && us.getClave().equals(PASS)) {
-			//model.addAttribute("name","admin");
-			redirect.addAttribute("name","admin");
-			return "redirect:/"; //volvemos al controlador de index
+			redirect.addFlashAttribute("user",us);
+			return "redirect:/";
 		}else {
 			model.addAttribute("mensaje","Error de creedenciales");
 			return "redirect:/login"; //volvemos al login
