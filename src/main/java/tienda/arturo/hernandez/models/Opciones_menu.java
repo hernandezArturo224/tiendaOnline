@@ -2,8 +2,18 @@ package tienda.arturo.hernandez.models;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name="opciones_menu")
 public class Opciones_menu implements Serializable{
 	
+	@Id
+	@GeneratedValue
 	private int id;
 	
 	private int id_rol;

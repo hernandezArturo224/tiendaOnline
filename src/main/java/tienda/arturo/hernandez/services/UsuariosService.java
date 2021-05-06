@@ -24,4 +24,8 @@ public class UsuariosService {
 		return us;
 	}
 	
+	public Iterable getListaUsuarios() {
+		return rep.findAll();
+	}
+	
 }

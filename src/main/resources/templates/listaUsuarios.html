@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link th:href="@{css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+<div style="margin-right: 50px; margin-left: 50px; text-align:center;">
+<h2 class="display-1">Lista de Usuarios</h2>
+	<table  class="table table-sm table-dark">
+		<div class="table-responsive">
+			<table class="table align-middle">
+				 <thead>
+	        		<tr>
+	        			<th>Id</th>
+	        			<th>Id Rol</th>
+	        			<th>E-Mail</th>
+	        			<th>Clave</th>
+	        			<th>Nombre</th>
+	        			<th>Apellido 1</th>
+	        			<th>Apellido 2</th>
+	        			<th>Direccion</th>
+	        			<th>Localidad</th>
+	        			<th>Provincia</th>
+	        			<th>Telefono</th>
+	        			<th>DNI</th>
+	        		</tr>
+	        		<tbody th:each="user : ${usuarios}">
+	        			<tr>
+	        				<td th:text="${user.id}"></td>
+	        				<td th:text="${user.id_rol}"></td>
+	        				<td th:text="${user.email}"></td>
+	        				<td th:text="${user.clave}"></td>
+	        				<td th:text="${user.nombre}"></td>
+	        				<td th:text="${user.apellido1}"></td>
+	        				<td th:text="${user.apellido2}"></td>
+	        				<td th:text="${user.direccion}"></td>
+	        				<td th:text="${user.localidad}"></td>
+	        				<td th:text="${user.provincia}"></td>
+	        				<td th:text="${user.telefono}"></td>
+	        				<td th:text="${user.dni}"></td>
+	        			</tr>
+	        		</tbody>
+	      		</thead>
+			</table>
+		</div>
+	</table>
+</div>	
+</body>
+</html>

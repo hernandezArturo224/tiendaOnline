@@ -4,10 +4,23 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 <link th:href="@{css/bootstrap.min.css}" rel="stylesheet">
-<link rel="stylesheet" th:href="@{css/style.css}">
 </head>
 <body>
 	<h1>Bienvenido a la app</h1><span th:text="${session.user?.email}">Anonimo</span>
+	
+	<div class="container">
+		<nav class="navbar navbar-expand-lg navbar-light bg-light rounded" aria-label="Eleventh navbar example">
+			<div  class="container-fluid">
+				 <div class="collapse navbar-collapse" id="navbarsExample09">
+				 	<ul class="navbar-nav me-auto mb-2 mb-lg-0" th:each="item: ${menu}">
+				 		<li class="nav-item" >
+							<a class="nav-link" th:href="@{${item.ruta}}" th:text="${item.opcion}">Opcion</a>
+						</li>
+				 	</ul>
+				</div>
+			</div>
+		</nav>
+	</div>
 	
 <table  class="table table-sm table-dark">
 	<div class="table-responsive">

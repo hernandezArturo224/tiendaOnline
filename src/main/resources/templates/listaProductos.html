@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link th:href="@{css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+<div style="margin-right: 50px; margin-left: 50px; text-align:center;">
+<h2 class="display-1">Lista de Productos</h2>
+	<table  class="table table-sm table-dark">
+		<div class="table-responsive">
+			<table class="table align-middle">
+				 <thead>
+	        		<tr>
+	        			<th>Id</th>
+	        			<th>Id Categoria</th>
+	        			<th>Nombre</th>
+	        			<th>Descripcion</th>
+	        			<th>Precio</th>
+	        			<th>Stock</th>
+	        			<th>Fecha Alta</th>
+	        			<th>Fecha Baja</th>
+	        			<th>Impuesto</th>
+	        		</tr>
+	        		<tbody th:each="producto : ${productos}">
+	        			<tr>
+	        				<td th:text="${producto.id}"></td>
+	        				<td th:text="${producto.id_categoria}"></td>
+	        				<td th:text="${producto.nombre}"></td>
+	        				<td th:text="${producto.descripcion}"></td>
+	        				<td th:text="${producto.precio}"></td>
+	        				<td th:text="${producto.stock}"></td>
+	        				<td th:text="${producto.fecha_alta}"></td>
+	        				<td th:text="${producto.fecha_baja}"></td>
+	        				<td th:text="${producto.impuesto}"></td>
+	        			</tr>
+	        		</tbody>
+	      		</thead>
+			</table>
+		</div>
+	</table>
+</div>	
+</body>
+</html>
