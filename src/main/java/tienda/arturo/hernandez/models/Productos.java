@@ -5,12 +5,18 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 
+@Entity
+@Table(name="productos")
 public class Productos implements Serializable{
 	
+	
+	@Id
+	@GeneratedValue
 	private int id;
 	
 	private int id_categoria;

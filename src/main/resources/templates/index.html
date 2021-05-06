@@ -3,25 +3,32 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<link th:href="@{css/bootstrap.min.css}" rel="stylesheet">
+<link rel="stylesheet" th:href="@{css/style.css}">
 </head>
 <body>
-	<h1>Bienvenido a la app</h1><span th:text="${user.email}"></span>
+	<h1>Bienvenido a la app</h1><span th:text="${session.user?.email}">Anonimo</span>
 	
-	<table>
-		<thead>
-			<th>Categoria</th>
-			<th>Nombre</th>
-			<th>Descripcion</th>
-			<th>Precio</th>
-		</thead>
-		<tbody th:each="producto : ${productos}">
-			<tr>
-				<td th:text="${producto.id_categoria}"></td>
-				<td th:text="${producto.nombre}"></td>
-				<td th:text="${producto.descripcion}"></td>
-				<td th:text="${producto.precio}"></td>
-			</tr>
-		</tbody>
-	</table>
+<table  class="table table-sm table-dark">
+	<div class="table-responsive">
+		<table class="table align-middle">
+			 <thead>
+        		<tr>
+        			<th>Nombre</th>
+        			<th>Descripcion</th>
+        			<th>Precio</th>
+        		</tr>
+        		<tbody th:each="producto : ${productos}">
+        			<tr>
+        				<td th:text="${producto.nombre}"></td>
+        				<td th:text="${producto.descripcion}"></td>
+        				<td th:text="${producto.precio}"></td>
+        			</tr>
+        		</tbody>
+      		</thead>
+		</table>
+	</div>
+</table>	
+
 </body>
 </html>

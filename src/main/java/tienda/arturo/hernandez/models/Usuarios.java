@@ -5,8 +5,12 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 
+@Entity
+@Table(name="usuarios")
 public class Usuarios implements Serializable{
 
+	@Id
+	@GeneratedValue
 	private int id;
 	
 	private int id_rol;

@@ -1,5 +1,6 @@
 package tienda.arturo.hernandez.controllers;
 
+import javax.servlet.http.HttpSession;
 import javax.websocket.server.PathParam;
 
 import org.springframework.stereotype.Controller;
@@ -23,11 +24,12 @@ public class LoginController {
 	//@ModelAttribute login
 	
 	@PostMapping("/log")
-	public String getLogged(Model model,@ModelAttribute Usuarios us, RedirectAttributes redirect) {
+	public String getLogged(Model model,@ModelAttribute Usuarios us, RedirectAttributes redirect, HttpSession sesion) {
 		System.out.println("Email: "+us.getEmail()+" Clave: "+us.getClave());
 		
 		if(us.getEmail().equals(MAIL) && us.getClave().equals(PASS)) {
-			redirect.addFlashAttribute("user",us);
+			//redirect.addFlashAttribute("user",us);
+			sesion.setAttribute("user", us);
 			return "redirect:/";
 		}else {
 			model.addAttribute("mensaje","Error de creedenciales");
