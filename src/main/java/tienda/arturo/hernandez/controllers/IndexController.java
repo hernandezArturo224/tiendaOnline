@@ -1,5 +1,7 @@
 package tienda.arturo.hernandez.controllers;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,14 +31,18 @@ public class IndexController {
 	
 	
 	@GetMapping("")
-	public String goIndex(Model model) {
+	public String goIndex(Model model,HttpSession sesion) {
 		System.out.println("Pasando por controlador");
 		//Usuarios user = (Usuarios)model.asMap().get("user");
-		Usuarios us = serUsuarios.getUserbyId(2);
-		System.out.println(us);
-		//model.addAttribute("user",user);
 		model.addAttribute("productos",serProductos.getListaProductos());
-		model.addAttribute("menu",serMenu.getListaMenu());
+		
+		Usuarios user = (Usuarios)sesion.getAttribute("user");
+		if(user != null) {
+			if(user.getId_rol() <= 2) {
+				model.addAttribute("menu",serMenu.getMenuFromRol(user.getId_rol()));
+			}
+		}
+		
 		return "index";
 	}
 

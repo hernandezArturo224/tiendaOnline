@@ -2,6 +2,7 @@ package tienda.arturo.hernandez.models;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,7 +17,8 @@ public class Opciones_menu implements Serializable{
 	@GeneratedValue
 	private int id;
 	
-	private int id_rol;
+	@Column(name="id_rol")
+	private int rol;
 	
 	private String opcion;
 	
@@ -28,7 +30,7 @@ public class Opciones_menu implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Opciones_menu [id=" + id + ", id_rol=" + id_rol + ", opcion=" + opcion + ", ruta=" + ruta + "]";
+		return "Opciones_menu [id=" + id + ", id_rol=" + rol + ", opcion=" + opcion + ", ruta=" + ruta + "]";
 	}
 
 	public int getId() {
@@ -40,11 +42,11 @@ public class Opciones_menu implements Serializable{
 	}
 
 	public int getId_rol() {
-		return id_rol;
+		return rol;
 	}
 
 	public void setId_rol(int id_rol) {
-		this.id_rol = id_rol;
+		this.rol = id_rol;
 	}
 
 	public String getOpcion() {
@@ -66,7 +68,7 @@ public class Opciones_menu implements Serializable{
 	public Opciones_menu(int id, int id_rol, String opcion, String ruta) {
 		super();
 		this.id = id;
-		this.id_rol = id_rol;
+		this.rol = id_rol;
 		this.opcion = opcion;
 		this.ruta = ruta;
 	}

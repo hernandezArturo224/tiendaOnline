@@ -19,7 +19,13 @@ public class UsuariosService {
 	}*/
 	
 	public Usuarios getUserbyId(int id) {
-		Usuarios us = rep.findById(id).get();
+		Usuarios us = rep.findById(id);
+		
+		return us;
+	}
+	
+	public Usuarios getUserByEmail(String email) {
+		Usuarios us = rep.findByEmail(email);
 		
 		return us;
 	}
