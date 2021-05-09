@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body class="text-center" >
+	<form method="post" th:action="@{/busqueda}">
+		<div class="form-floating">
+				<input class="form-control"  type="text" style="margin: 5px;" id="busca" name="busca"/>
+				<label for="busca">Introduce nombre, descripcion de un producto...</label>  
+				<input class="btn btn-primary" type="submit" name="btnSubmit" value="Buscar" />
+			</div>
+			
+	</form>
+</body>
+</html>

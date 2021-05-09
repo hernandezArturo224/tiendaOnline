@@ -38,8 +38,8 @@
 	        				<td th:text="${producto.fecha_baja}"></td>
 	        				<td th:text="${producto.impuesto}"></td>
 	        				<td>
-	        					<a class="btn btn-secondary" >Editar</a>
-								<a class="btn btn-danger" >Eliminar</a>
+	        					<a class="btn btn-secondary" th:href="@{/productos/edit/}+${producto.id}">Editar</a>
+								<a class="btn btn-danger" th:href="@{/productos/del/}+${producto.id}" >Eliminar</a>
 	        				</td>
 	        			</tr>
 	        		</tbody>

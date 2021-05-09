@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -31,6 +32,7 @@ public class IndexController {
 	private MenuService serMenu;
 	
 	private List<Productos> productos;
+	private boolean precio=true;
 	
 	
 	
@@ -51,6 +53,14 @@ public class IndexController {
 		return "index";
 	}
 	
+	@PostMapping("/busqueda")
+	public String buscaProductos(@RequestParam String busca,Model model) {
+		System.out.println("Buscando...");
+		productos = (List<Productos>)serProductos.busquedaProductos(busca);
+		model.addAttribute("productos",productos);
+		return "index";
+	}
+	
 	@GetMapping("/precio")
 	public String orderPrecio(Model model) {
 		orderByPrecio();
@@ -60,13 +70,31 @@ public class IndexController {
 	
 	
 	public void orderByPrecio(){
-		for(int i=0;i<productos.size()-1;i++) {
-			if(productos.get(i).getPrecio() < productos.get(i+1).getPrecio()) {
-				Productos aux = productos.get(i);
-				productos.set(i, productos.get(i+1));
-				productos.set(i+1, aux);
-			}
-		}
+	     int i, j;
+	     Productos aux;
+	     if(precio) {
+	    	 for (i = 0; i < productos.size() - 1; i++) {
+		            for (j = 0; j < productos.size() - i - 1; j++) {
+		                if (productos.get(j+1).getPrecio() < productos.get(j).getPrecio()) {
+		                    aux = productos.get(j+1);
+		                    productos.set(j+1, productos.get(j));
+		                    productos.set(j, aux);
+		                }
+		            }
+		        }
+	    	 precio = !precio;
+	     }else {
+	    	 for (i = 0; i < productos.size() - 1; i++) {
+		            for (j = 0; j < productos.size() - i - 1; j++) {
+		                if (productos.get(j+1).getPrecio() >= productos.get(j).getPrecio()) {
+		                    aux = productos.get(j+1);
+		                    productos.set(j+1, productos.get(j));
+		                    productos.set(j, aux);
+		                }
+		            }
+		        }
+	    	 precio = !precio;
+	     }
 	}
 
 }

@@ -2,27 +2,75 @@
 <html>
 <head>
 <th:block th:insert="fragments/head"></th:block>
+  <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link th:href="@{css/signin.css}" rel="stylesheet">
 </head>
-<body>
+<body class="text-center">
 <th:block th:insert="fragments/navHead"></th:block>
-<div style="margin-right: 50px; margin-left: 50px; text-align:center; margin-top: 60px;">
-<form method="post" style="text-align: center;" th:object="${productos}" th:action="@{/productos/insertar/submit}">
-		<input type="text"  style="margin: 5px;" name="id_categoria" th:field="*{id_categoria}" placeholder="Introduce el id de la categoria"/>
-		</br>
-		<input type="date" style="margin: 5px;" name="baja" placeholder="Introduce la fecha de baja del producto"/>
-		</br>
-		<input type="text" style="margin: 5px;" name="stock" th:field="*{stock}" placeholder="Introduce el stock total"/>
-		</br>
-		<input type="text" style="margin: 5px;" name="impuesto" th:field="*{impuesto}" placeholder="Introduce el impuesto"/>
-		</br>
-		<input type="text" style="margin: 5px;" name="descripcion" th:field="*{descripcion}" placeholder="Introduce la descripcion del producto"/>
-		</br>
-		<input type="text" style="margin: 5px;" name="nombre" th:field="*{nombre}" placeholder="Introduce el nombre del producto"/>
-		</br>
-		<input type="text" style="margin: 5px;" name="precio" th:field="*{precio}" placeholder="Introduce el precio del producto"/>
-		</br>
-		<input type="submit" name="btnSubmit" value="Insertar Producto" />
+<main class="form-signin">
+<div style="margin-right: 20%; margin-left: 20%; text-align:center; margin-top: 60px;">
+<form method="post" style="text-align: center;" th:object="${productos}" th:action="${productos.id !=0} ? @{/productos/edit/submit} : @{/productos/insertar/submit}">
+		<fieldset>
+			<legend th:if="${productos.id !=0}">
+                    Editar Producto
+             </legend>
+             <legend th:if="${productos.id ==0}">
+                    Nuevo Producto
+             </legend>
+			<input id="id" name="id" type="hidden" placeholder=""  required="" th:field="*{id}">
+			<div class="form-floating">
+				<input class="form-control" type="text" style="margin: 5px;" id="nombre" name="nombre"  th:field="*{nombre}" placeholder="Introduce el nombre del producto"/>
+				<label for="nombre">Nombre</label>  
+			</div>
+			<div class="form-floating">
+				<input type="text" class="form-control" style="margin: 5px;" name="descripcion" id="descripcion" th:field="*{descripcion}" placeholder="Introduce la descripcion del producto"/>
+				<label for="descripcion">Descripcion</label>
+			</div>
+			<div class="form-floating">
+				<input class="form-control" id="precio" type="text" style="margin: 5px;" name="precio" th:field="*{precio}" placeholder="Introduce el precio del producto"/>
+				<label for="precio">Precio</label>
+			</div>
+			<div class="form-floating">
+				<select class="form-select" id="id_categoria" name="id_categoria"  th:field="*{id_categoria}" >
+					<div th:each="categoria : ${categorias}">
+					<option th:value="${categoria.id}"  th:text="${categoria.nombre}"></option>
+					</div>
+				</select>
+			<label for="id_categoria">Categoria</label>
+			</div>
+			<div class="form-floating">
+				<input type="date" class="form-control" style="margin: 5px;" name="baja" id="baja"  placeholder="Introduce la fecha de baja del producto"/>
+				<label for="baja">Fecha de Baja</label>
+			</div>
+			<div class="form-floating">
+				<input class="form-control" type="text" style="margin: 5px;" name="stock" id="stock" th:field="*{stock}" placeholder="Introduce el stock total"/>
+				<label for="stock">Stock</label>
+			</div>
+			<div class="form-floating">
+				<input type="text" style="margin: 5px;"  class="form-control" id="impuesto" name="impuesto" th:field="*{impuesto}" placeholder="Introduce el impuesto"/>
+				<label for="impuesto">Impuesto</label>
+			</div>
+			<input class="btn btn-primary" type="submit" name="btnSubmit" value="Guardar" />
+		</fieldset>
 	</form>
 </div>
+</main>
 </body>
 </html>
