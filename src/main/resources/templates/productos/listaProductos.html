@@ -7,6 +7,9 @@
 <th:block th:insert="fragments/navHead"></th:block>
 <div style="margin-right: 50px; margin-left: 50px; text-align:center; margin-top: 60px;">
 <h2 class="display-1">Lista de Productos</h2>
+<div class="container">
+		<a class="btn btn-info" th:href="@{/productos/insertar}">Insertar Producto</a>
+	</div>
 	<table  class="table table-sm table-dark">
 		<div class="table-responsive">
 			<table class="table align-middle">
@@ -21,6 +24,7 @@
 	        			<th>Fecha Alta</th>
 	        			<th>Fecha Baja</th>
 	        			<th>Impuesto</th>
+	        			<th>Opciones</th>
 	        		</tr>
 	        		<tbody th:each="producto : ${productos}">
 	        			<tr>
@@ -33,13 +37,18 @@
 	        				<td th:text="${producto.fecha_alta}"></td>
 	        				<td th:text="${producto.fecha_baja}"></td>
 	        				<td th:text="${producto.impuesto}"></td>
+	        				<td>
+	        					<a class="btn btn-secondary" >Editar</a>
+								<a class="btn btn-danger" >Eliminar</a>
+	        				</td>
 	        			</tr>
 	        		</tbody>
 	      		</thead>
 			</table>
 		</div>
 	</table>
-	<a class="btn btn-outline-success" th:href="@{/productos/insertar}">Insertar Producto</a>
+	
+	
 </div>	
 </body>
 </html>

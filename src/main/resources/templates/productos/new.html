@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<th:block th:insert="fragments/head"></th:block>
+</head>
+<body>
+<th:block th:insert="fragments/navHead"></th:block>
+<div style="margin-right: 50px; margin-left: 50px; text-align:center; margin-top: 60px;">
+<form method="post" style="text-align: center;" th:object="${productos}" th:action="@{/productos/insertar/submit}">
+		<input type="text"  style="margin: 5px;" name="id_categoria" th:field="*{id_categoria}" placeholder="Introduce el id de la categoria"/>
+		</br>
+		<input type="date" style="margin: 5px;" name="baja" placeholder="Introduce la fecha de baja del producto"/>
+		</br>
+		<input type="text" style="margin: 5px;" name="stock" th:field="*{stock}" placeholder="Introduce el stock total"/>
+		</br>
+		<input type="text" style="margin: 5px;" name="impuesto" th:field="*{impuesto}" placeholder="Introduce el impuesto"/>
+		</br>
+		<input type="text" style="margin: 5px;" name="descripcion" th:field="*{descripcion}" placeholder="Introduce la descripcion del producto"/>
+		</br>
+		<input type="text" style="margin: 5px;" name="nombre" th:field="*{nombre}" placeholder="Introduce el nombre del producto"/>
+		</br>
+		<input type="text" style="margin: 5px;" name="precio" th:field="*{precio}" placeholder="Introduce el precio del producto"/>
+		</br>
+		<input type="submit" name="btnSubmit" value="Insertar Producto" />
+	</form>
+</div>
+</body>
+</html>

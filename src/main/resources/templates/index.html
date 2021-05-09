@@ -6,7 +6,7 @@
 <body>
 <th:block th:insert="fragments/navHead"></th:block>
 
-<div th:if="${menu != null}">
+<div th:if="${session.menu != null}">
 	<th:block th:insert="fragments/menu"></th:block>
 </div>
 

@@ -10,7 +10,7 @@
 		<nav class="navbar navbar-expand-lg navbar-light bg-light rounded" aria-label="Eleventh navbar example">
 			<div  class="container-fluid">
 				 <div class="collapse navbar-collapse" id="navbarsExample09">
-				 	<ul class="navbar-nav me-auto mb-2 mb-lg-0" th:each="item: ${menu}">
+				 	<ul class="navbar-nav me-auto mb-2 mb-lg-0" th:each="item: ${session.menu}">
 				 		<li class="nav-item" >
 							<a class="nav-link" th:href="@{${item.ruta}}" th:text="${item.opcion}">Opcion</a>
 						</li>
