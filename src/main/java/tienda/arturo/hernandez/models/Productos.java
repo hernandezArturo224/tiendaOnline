@@ -2,6 +2,7 @@ package tienda.arturo.hernandez.models;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,12 +36,14 @@ public class Productos implements Serializable{
 	
 	private float impuesto;
 	
+	private String imagen;
+	
 	public Productos() {
 		
 	}
 
 	public Productos(int id_categoria, String nombre, String descripcion, double precio, int stock,
-			Timestamp fecha_baja, float impuesto) {
+			Timestamp fecha_baja, float impuesto, String imagen) {
 		super();
 		this.id_categoria = id_categoria;
 		this.nombre = nombre;
@@ -49,6 +52,15 @@ public class Productos implements Serializable{
 		this.stock = stock;
 		this.fecha_baja = fecha_baja;
 		this.impuesto = impuesto;
+		this.imagen=imagen;
+	}
+
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
 	}
 
 	@Override

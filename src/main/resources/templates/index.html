@@ -20,12 +20,18 @@
         				<th>Nombre</th>
         				<th>Descripcion</th>
         				<th><a  class="link-secondary" th:href="@{/precio}">Precio</a></th>
+        				<th><a  class="link-secondary" th:href="@{/valoracion}">Valoración media</a></th>
         			</tr>
         		<tbody th:each="producto : ${productos}">
         			<tr>
-        				<td th:text="${producto.nombre}"></td>
-        				<td th:text="${producto.descripcion}"></td>
-        				<td th:text="${producto.precio}"></td>
+        				<td th:text="${producto.producto.nombre}"></td>
+        				<td th:text="${producto.producto.descripcion}"></td>
+        				<td th:text="${producto.producto.precio}"></td>
+        				<td th:text="${producto.valoracionMedia}"></td>
+        				<td>
+        					<a class="btn btn-success" th:href="@{/putcarrito/}+${producto.producto.id}">Comprar</a>
+        					<a class="btn btn-secondary" th:href="@{/verdetalles/}+${producto.producto.id}">Ver</a>
+        				</td>
         			</tr>
         		</tbody>
       		</thead>

@@ -34,4 +34,8 @@ public class UsuariosService {
 		return rep.findAll();
 	}
 	
+	public void guardarUsuario(Usuarios user) {
+		rep.save(user);
+	}
+	
 }

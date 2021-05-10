@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<th:block th:insert="fragments/head"></th:block>
+</head>
+<body>
+	<th:block th:insert="fragments/navHead"></th:block>
+	
+	<div style="margin-right: 50px; margin-left: 50px; text-align:center; margin-top: 100px;">
+	<table  class="table table-sm table-dark">
+		<div class="table-responsive">
+			<table class="table align-middle">
+				 <thead>
+        			<tr>
+        				<th>Nombre</th>
+        				<th>Descripcion</th>
+        				<th>Precio</th>
+        			</tr>
+        		<tbody th:each="carrito : ${session.carrito}">
+        			<tr>
+        				<td th:text="${carrito.nombre}"></td>
+        				<td th:text="${carrito.descripcion}"></td>
+        				<td th:text="${carrito.precio}"></td>
+        			</tr>
+        		</tbody>
+      		</thead>
+		</table>
+	</div>
+</table>	
+</div>
+</body>
+</html>

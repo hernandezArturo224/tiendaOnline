@@ -55,10 +55,10 @@
 				</select>
 			<label for="id_categoria">Categoria</label>
 			</div>
-			<div class="form-floating">
+			<div class="form-floating" th:if="${productos.id != 0}">
 				<input type="date" class="form-control" style="margin: 5px;" name="baja" id="baja"  placeholder="Introduce la fecha de baja del producto"/>
 				<label for="baja">Fecha de Baja</label>
-			</div>
+			</div> 
 			<div class="form-floating">
 				<input class="form-control" type="text" style="margin: 5px;" name="stock" id="stock" th:field="*{stock}" placeholder="Introduce el stock total"/>
 				<label for="stock">Stock</label>

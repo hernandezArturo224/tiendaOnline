@@ -28,9 +28,11 @@
         <div th:if="${session.user != null}">
         	 <a class="nav-link" th:href="@{/login/logout}" tabindex="-1" aria-disabled="true">Logout</a>
         </div>
-         
         </li>
       </ul>
+      <div class="form-inline my-2 my-lg-0">
+	      <a th:href="@{/vercarrito}" class="nav-link"><img id="ojo" style="padding-left: 5px; vertical-align: middle;" src="/img/carro.png" width="30" /></a>
+    </div>
     </div>
   </div>
 </nav>

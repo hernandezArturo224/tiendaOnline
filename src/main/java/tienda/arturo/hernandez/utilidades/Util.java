@@ -2,6 +2,11 @@ package tienda.arturo.hernandez.utilidades;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import com.google.gson.Gson;
+
+import tienda.arturo.hernandez.models.Provincias;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -9,14 +14,14 @@ import java.net.URL;
 
 public class Util {
 	
-	/*public static Provincias[] getProvincias(){
+	public static Provincias[] getProvincias(){
 		String cadenaJson = leerUrl("https://raw.githubusercontent.com/IagoLast/pselect/master/data/provincias.json");
 
 		Provincias[] prov = new Gson().fromJson(cadenaJson, Provincias[].class);
 		Arrays.sort(prov);
 		
 		return prov;
-	}*/
+	}
 	
 	
 	public static String leerUrl(String sUrl) {

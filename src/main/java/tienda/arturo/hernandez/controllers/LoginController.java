@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import tienda.arturo.hernandez.models.Usuarios;
+import tienda.arturo.hernandez.services.MenuService;
 import tienda.arturo.hernandez.services.UsuariosService;
 import tienda.arturo.hernandez.utilidades.StringUtilities;
 
@@ -22,6 +23,9 @@ public class LoginController {
 	
 	@Autowired
 	private UsuariosService serUsuarios;
+	
+	@Autowired
+	private MenuService serMenu;
 	
 	@GetMapping("")
 	public String loginIndex(Model model) {
@@ -40,6 +44,12 @@ public class LoginController {
 			
 			if(StringUtilities.checkPassword(us.getClave(), user.getClave())) {
 				sesion.setAttribute("user", user);
+				Usuarios use = (Usuarios)sesion.getAttribute("user");
+				if(use != null) {
+					if(use.getId_rol() <= 2) {
+						sesion.setAttribute("menu",serMenu.getMenuFromRol(use.getId_rol()));
+					}
+				}
 				return "redirect:/";
 			}else {
 				redirect.addFlashAttribute("mensaje","Error, clave no valida");
@@ -54,6 +64,7 @@ public class LoginController {
 	@GetMapping("/logout")
 	public String getLogout(HttpSession sesion) {
 		sesion.invalidate();
+		IndexController.carritoBool=true;
 		return "redirect:/";
 	}
 	

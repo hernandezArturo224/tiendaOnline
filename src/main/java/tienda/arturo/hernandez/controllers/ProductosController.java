@@ -54,8 +54,10 @@ public class ProductosController {
 	
 	@PostMapping("/edit/submit")
 	public String editSubmit(@ModelAttribute Productos producto, @RequestParam String baja) {
-		Timestamp fecha_baja = StringUtilities.getTimestampFromString(baja);
-		producto.setFecha_baja(fecha_baja);
+		if(!baja.equals("")) {
+			Timestamp fecha_baja = StringUtilities.getTimestampFromString(baja);
+			producto.setFecha_baja(fecha_baja);
+		}
 		serProductos.guardarProducto(producto);
 		return "redirect:/productos";
 	}
@@ -70,9 +72,7 @@ public class ProductosController {
 	}
 	
 	@PostMapping("/insertar/submit")
-	public String insertaSubmit(@ModelAttribute Productos producto, @RequestParam String baja) {
-		Timestamp fecha_baja = StringUtilities.getTimestampFromString(baja);
-		producto.setFecha_baja(fecha_baja);
+	public String insertaSubmit(@ModelAttribute Productos producto) {
 		serProductos.guardarProducto(producto);
 		return "redirect:/productos";
 	}

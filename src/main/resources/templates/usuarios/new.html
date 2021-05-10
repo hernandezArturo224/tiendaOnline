@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<th:block th:insert="fragments/head"></th:block>
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link th:href="@{css/signin.css}" rel="stylesheet">
+</head>
+<body class="text-center">
+<!-- th:object="${usLog}" -->
+	
+	<main class="form-signin">
+	<div style="margin: 10% 10% 10% 10%;">
+		<h2 style="margin-bottom: 5%;">Bienvenido a ShopTop</h2>
+		<form method="post" style="text-align: center;" th:object="${usuarios}" th:action="@{/usuarios/new/submit}">
+			<div class="form-floating">
+				<input type="hidden"  class="form-control" id="id_rol"  value="3" style="margin: 5px;" name="id_rol" placeholder="Selecciona el rol"/>
+				<label for="id_rol">Rol</label>
+			</div>
+			
+			<div class="form-floating">
+				<input type="text"  class="form-control" id="email" style="margin: 5px;" name="email" placeholder="Introduce el email"/>
+				<label for="email">Email</label>
+			</div>
+			<div class="form-floating">
+				<input type="password"  id="clave" class="form-control" style="margin: 5px;" name="clave" placeholder="Introduce la clave"/>
+				<label for="clave">Password</label>
+			</div>
+			<div class="form-floating">
+				<input type="text"  id="nombre" class="form-control" style="margin: 5px;" name="nombre" placeholder="Introduce el nombre"/>
+				<label for="nombre">Nombre</label>
+			</div>
+			<div class="form-floating">
+				<input type="text"  id="apellido1" class="form-control" style="margin: 5px;" name="apellido1" placeholder="Introduce el Primer Apellido"/>
+				<label for="apellido1">Primer Apellido</label>
+			</div>
+			<div class="form-floating">
+				<input type="text"  id="apellido2" class="form-control" style="margin: 5px;" name="apellido2" placeholder="Introduce el Segundo Apellido"/>
+				<label for="apellido2">Segundo Apellido</label>
+			</div>
+			<div class="form-floating">
+				<input type="text"  id="dni" class="form-control" style="margin: 5px;" name="dni" placeholder="Introduce el dni"/>
+				<label for="dni">DNI</label>
+			</div>
+			<div class="form-floating">
+				<select class="form-select" id="provincia" name="provincia"  th:field="*{provincia}" >
+					<div th:each="provincia : ${provincias}">
+						<option th:value="${provincia.nm}"  th:text="${provincia.nm}"></option>
+					</div>
+				</select>
+				<label for="provincia">Provincia</label>
+			</div>
+			<div class="form-floating">
+				<input type="text"  id="localidad" class="form-control" style="margin: 5px;" name="localidad" placeholder="Introduce la localidad"/>
+				<label for="localidad">Localidad</label>
+			</div>
+			<div class="form-floating">
+				<input type="text"  id="direccion" class="form-control" style="margin: 5px;" name="direccion" placeholder="Introduce la direccion"/>
+				<label for="direccion">Dirección</label>
+			</div>
+			<div class="form-floating">
+				<input type="text"  id="telefono" class="form-control" style="margin: 5px;" name="telefono" placeholder="Introduce el teléfono"/>
+				<label for="telefono">Telefono</label>
+			</div>
+			<input type="submit" class="w-100 btn btn-lg btn-primary" name="btnSubmit" value="Registrarse" />
+		</form>
+		</div>
+	</main>	
+</body>
+</html>
