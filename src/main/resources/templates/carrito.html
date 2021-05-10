@@ -15,14 +15,21 @@
         				<th>Nombre</th>
         				<th>Descripcion</th>
         				<th>Precio</th>
+        				<th>Unidades</th>
+        				<th>Precio unidad</th>
+        				<th>Total</th>
         			</tr>
         		<tbody th:each="carrito : ${session.carrito}">
         			<tr>
-        				<td th:text="${carrito.nombre}"></td>
-        				<td th:text="${carrito.descripcion}"></td>
-        				<td th:text="${carrito.precio}"></td>
+        				<td th:text="${carrito.producto.nombre}"></td>
+        				<td th:text="${carrito.producto.descripcion}"></td>
+        				<td th:text="${carrito.producto.precio}"></td>
+        				<td th:text="${carrito.detalles.unidades}"></td>
+        				<td th:text="${carrito.detalles.precio_unidad}"></td>
+        				<td th:text="${carrito.detalles.total}"></td>
         			</tr>
         		</tbody>
+        		<tr ><td th:text="${session.total}"></td></tr>
       		</thead>
 		</table>
 	</div>

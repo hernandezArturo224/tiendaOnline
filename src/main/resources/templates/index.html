@@ -29,7 +29,7 @@
         				<td th:text="${producto.producto.precio}"></td>
         				<td th:text="${producto.valoracionMedia}"></td>
         				<td>
-        					<a class="btn btn-success" th:href="@{/putcarrito/}+${producto.producto.id}">Comprar</a>
+        					<a class="btn btn-success" th:href="@{/carrito/putcarrito/}+${producto.producto.id}">Comprar</a>
         					<a class="btn btn-secondary" th:href="@{/verdetalles/}+${producto.producto.id}">Ver</a>
         				</td>
         			</tr>

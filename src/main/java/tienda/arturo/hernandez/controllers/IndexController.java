@@ -35,11 +35,11 @@ public class IndexController {
 	private static boolean precio=true;
 	private static boolean valoracion=true;
 	protected static boolean carritoBool=true;
-	private String redireccion="/";
+	protected static String redireccion="/";
 	
 	
 	private void iniciaCarrito(HttpSession sesion) {
-		ArrayList<Productos> carrito = new ArrayList<Productos>();
+		ArrayList<ProductosPedido> carrito = new ArrayList<ProductosPedido>();
 		sesion.setAttribute("carrito",carrito);
 		carritoBool=false;
 	}
@@ -105,20 +105,6 @@ public class IndexController {
 		orderByValoracion();
 		model.addAttribute("productos",productos);
 		return "index";
-	}
-	
-	@GetMapping("/putcarrito/{id}")
-	public String putOnCarrito(@PathVariable("id") int id,HttpSession sesion) {
-		Productos prod = serProductos.getProductoFromId(id);
-		List<Productos> carrito = (List<Productos>) sesion.getAttribute("carrito");
-		carrito.add(prod);
-		sesion.setAttribute("carrito", carrito);
-		return "redirect:"+redireccion;
-	}
-	
-	@GetMapping("/vercarrito")
-	public String verCarrito(){
-		return "carrito";
 	}
 	
 	@GetMapping("/verdetalles/{id}")
