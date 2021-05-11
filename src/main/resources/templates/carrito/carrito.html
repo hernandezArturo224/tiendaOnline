@@ -29,11 +29,17 @@
         				<td th:text="${carrito.detalles.total}"></td>
         			</tr>
         		</tbody>
-        		<tr ><td th:text="${session.total}"></td></tr>
+        		<tr style="text-align: center;">
+        			<td>Total: <span  th:text="${session.total}"></span> €</td>
+        			<td><a th:href="@{/carrito/comprar}">Comprar</a></td>
+        			<td><a th:href="@{/carrito/vaciar}">Vaciar</a></td>
+        		</tr>
       		</thead>
 		</table>
 	</div>
-</table>	
+</table>
+
+	
 </div>
 </body>
 </html>

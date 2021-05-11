@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<th:block th:insert="fragments/head"></th:block>
+</head>
+<body>
+<th:block th:insert="fragments/navHead"></th:block>
+<div style="margin-right: 50px; margin-left: 50px; text-align:center; margin-top: 60px;">
+<h2 class="display-1">Lista de Usuarios</h2>
+	<table  class="table table-sm table-dark">
+		<div class="table-responsive">
+			<table class="table align-middle">
+				 <thead>
+	        		<tr>
+	        			<th>Fecha</th>
+	        			<th>Metodo de Pago</th>
+	        			<th>E-Mail</th>
+	        			<th>Clave</th>
+	        			<th>Nombre</th>
+	        			<th>Apellido 1</th>
+	        			<th>Apellido 2</th>
+	        			<th>Direccion</th>
+	        			<th>Localidad</th>
+	        			<th>Provincia</th>
+	        			<th>Telefono</th>
+	        			<th>DNI</th>
+	        		</tr>
+	        		<tbody th:each="user : ${usuarios}">
+	        			<tr>
+	        				<td th:text="${user.id}"></td>
+	        				<td th:text="${user.id_rol}"></td>
+	        				<td th:text="${user.email}"></td>
+	        				<td th:text="${user.clave}"></td>
+	        				<td th:text="${user.nombre}"></td>
+	        				<td th:text="${user.apellido1}"></td>
+	        				<td th:text="${user.apellido2}"></td>
+	        				<td th:text="${user.direccion}"></td>
+	        				<td th:text="${user.localidad}"></td>
+	        				<td th:text="${user.provincia}"></td>
+	        				<td th:text="${user.telefono}"></td>
+	        				<td th:text="${user.dni}"></td>
+	        			</tr>
+	        		</tbody>
+	      		</thead>
+			</table>
+		</div>
+	</table>
+</div>	
+</body>
+</html>

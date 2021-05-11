@@ -8,13 +8,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import tienda.arturo.hernandez.models.Detalles_pedido;
+import tienda.arturo.hernandez.models.Pedidos;
 import tienda.arturo.hernandez.models.Productos;
 import tienda.arturo.hernandez.models.ProductosPedido;
+import tienda.arturo.hernandez.models.Usuarios;
+import tienda.arturo.hernandez.services.Detalles_pedidoService;
+import tienda.arturo.hernandez.services.PedidosService;
 import tienda.arturo.hernandez.services.ProductosService;
+import tienda.arturo.hernandez.utilidades.StringUtilities;
 
 @Controller
 @RequestMapping("/carrito")
@@ -22,6 +30,12 @@ public class CarritoController {
 	
 	@Autowired
 	private ProductosService serProductos;
+	
+	@Autowired
+	private PedidosService serPedidos;
+	
+	@Autowired
+	private Detalles_pedidoService serDetalles;
 	
 	@GetMapping("")
 	public String verCarrito(Model model,HttpSession sesion){
@@ -31,7 +45,7 @@ public class CarritoController {
 			List<ProductosPedido> carrito = (List<ProductosPedido>) sesion.getAttribute("carrito");
 			Double total = getTotal(carrito);
 			sesion.setAttribute("total", total);
-			return "carrito";
+			return "carrito/carrito";
 		}
 		
 	}
@@ -56,12 +70,57 @@ public class CarritoController {
 				float precio = carrito.get(indice).getDetalles().getPrecio_unidad();
 				carrito.get(indice).getDetalles().setTotal(unidades*precio);
 			}
-		
-			
-	
-		
 		sesion.setAttribute("carrito", carrito);
 		return "redirect:"+IndexController.redireccion;
+	}
+	
+	@GetMapping("/comprar")
+	public String confirmarCompra(HttpSession sesion,Model model) {
+		List<ProductosPedido> carrito = (List<ProductosPedido>)sesion.getAttribute("carrito");
+		Usuarios user = (Usuarios)sesion.getAttribute("user");
+		
+		Pedidos pedido = new Pedidos();
+		pedido.setEstado("Sin confirmar");
+		double total = getTotal(carrito);
+		pedido.setTotal(total);
+		pedido.setFecha(StringUtilities.getDefaultTimestamp());
+		pedido.setUsuario(user.getId());
+		
+		sesion.setAttribute("pedido", pedido);
+		
+		model.addAttribute("estado","Sin confirmar");
+		model.addAttribute("pedido",pedido);
+		return "carrito/confirmarCompra";
+	}
+	
+	@PostMapping("/compraSubmit")
+	public String compraSubmit(HttpSession sesion,@RequestParam String metodoPago) {
+		Pedidos pedido = (Pedidos)sesion.getAttribute("pedido");
+		pedido.setMetodo_pago(metodoPago);
+		pedido = serPedidos.guardarPedido(pedido);
+		int idPedido = pedido.getId();
+		
+		List<ProductosPedido> carrito = (List<ProductosPedido>)sesion.getAttribute("carrito");
+		for(int i=0;i<carrito.size();i++) {
+			Detalles_pedido detalles = carrito.get(i).getDetalles();
+			detalles.setPedido(idPedido);
+			detalles.setImpuesto(carrito.get(i).getProducto().getImpuesto());
+			detalles.setProducto(carrito.get(i).getProducto().getId());
+			carrito.get(i).getProducto().setStock(carrito.get(i).getProducto().getStock() - detalles.getUnidades());
+			
+			serProductos.guardarProducto(carrito.get(i).getProducto());
+			serDetalles.guardarDetallesPedido(detalles);
+		}
+		
+		return "redirect:/";
+	}
+	
+	@GetMapping("/vaciar")
+	public String vaciarCarrito(HttpSession sesion) {
+		List<ProductosPedido> carrito = (List<ProductosPedido>)sesion.getAttribute("carrito");
+		carrito.clear();
+		sesion.setAttribute("carrito", carrito);
+		return "redirect:/carrito";
 	}
 	
 	public double getTotal(List<ProductosPedido> carrito) {

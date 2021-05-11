@@ -1,5 +1,7 @@
 package tienda.arturo.hernandez.controllers;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,9 +41,14 @@ public class UsuariosController {
 	}
 	
 	@PostMapping("/new/submit")
-	public String addUsuarioSubmit(Model model, @ModelAttribute Usuarios user) {
+	public String addUsuarioSubmit(Model model, @ModelAttribute Usuarios user,HttpSession sesion) {
 		user.setClave(StringUtilities.getEncryptedPassword(user.getClave()));
 		serUsuarios.guardarUsuario(user);
+		
+		if(sesion.getAttribute("user") == null) {
+			sesion.setAttribute("user", user);
+		}
+		
 		return "redirect:/";
 	}
 

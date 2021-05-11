@@ -3,9 +3,13 @@ package tienda.arturo.hernandez.models;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="detalles_pedido")
 public class Detalles_pedido implements Serializable{
 	
 	@Id
