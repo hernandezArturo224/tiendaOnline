@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<th:block th:insert="fragments/head"></th:block>
+</head>
+<body>
+<th:block th:insert="fragments/navHead"></th:block>
+<div style="margin-right: 50px; margin-left: 50px; text-align:center; margin-top: 60px;">
+<h2 class="display-1">Lista de Usuarios</h2>
+	<table  class="table table-sm table-dark">
+		<div class="table-responsive">
+			<table class="table align-middle">
+				 <thead>
+	        		<tr>
+	        			<th>Producto</th>
+	        			<th>Precio Unidad</th>
+	        			<th>Unidades</th>
+	        			<th>Impuesto</th>
+	        			<th>Total</th>
+	        			<th>Opciones</th>
+	        		</tr>
+	        		<tbody th:each="detalle : ${detalles}">
+	        			<tr>
+	        				<div th:each="producto : ${productos}">
+	        					<div th:if="${detalle.producto == producto.id}">
+	        						<td th:text="${producto.nombre}"></td>
+	        					</div>
+	        				</div>
+	        				<td th:text="${detalle.precio_unidad}"></td>
+	        				<td th:text="${detalle.unidades}"></td>
+	        				<td th:text="${detalle.impuesto}"></td>
+	        				<td th:text="${detalle.total}"></td>
+	        				<td>
+	        					<a class="btn btn-info" th:href="@{/verdetalles/}+${detalle.producto}">Ver Producto</a>
+	        				</td>
+	        			</tr>
+	        		</tbody>
+	      		</thead>
+			</table>
+		</div>
+	</table>
+</div>	
+</body>
+</html>

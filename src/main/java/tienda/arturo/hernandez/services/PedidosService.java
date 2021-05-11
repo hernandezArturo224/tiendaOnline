@@ -21,5 +21,9 @@ public class PedidosService {
 	public List<Pedidos> getPedidosUser(int usuario){
 		return rep.findByUsuario(usuario);
 	}
+	
+	public Pedidos getPedidoById(int id) {
+		return rep.findById(id);
+	}
 
 }

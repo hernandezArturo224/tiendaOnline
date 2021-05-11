@@ -10,4 +10,6 @@ public interface PedidosRepository extends JpaRepository<Pedidos,Integer>{
 
 	List<Pedidos> findByUsuario(int Usuario);
 	
+	Pedidos findById(int id);
+	
 }

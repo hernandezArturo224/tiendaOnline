@@ -106,11 +106,21 @@ public class CarritoController {
 			detalles.setPedido(idPedido);
 			detalles.setImpuesto(carrito.get(i).getProducto().getImpuesto());
 			detalles.setProducto(carrito.get(i).getProducto().getId());
-			carrito.get(i).getProducto().setStock(carrito.get(i).getProducto().getStock() - detalles.getUnidades());
+			
+			int stock = carrito.get(i).getProducto().getStock() - detalles.getUnidades();
+			
+			if(stock < 0) {
+				carrito.get(i).getProducto().setStock(0);
+				pedido.setEstado("cancelado");
+				serPedidos.guardarPedido(pedido);
+			}else {
+				carrito.get(i).getProducto().setStock(stock);
+			}
+			
 			
 			serProductos.guardarProducto(carrito.get(i).getProducto());
 			serDetalles.guardarDetallesPedido(detalles);
-		}
+		}//fin for
 		
 		return "redirect:/";
 	}

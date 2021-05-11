@@ -1,5 +1,7 @@
 package tienda.arturo.hernandez.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,5 +16,9 @@ public class Detalles_pedidoService {
 	
 	public void guardarDetallesPedido(Detalles_pedido detalles) {
 		rep.save(detalles);
+	}
+	
+	public List<Detalles_pedido> getDetallesFromPedido(int pedido){
+		return rep.findByPedido(pedido);
 	}
 }

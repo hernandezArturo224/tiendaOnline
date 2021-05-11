@@ -6,7 +6,7 @@
 <body>
 <th:block th:insert="fragments/navHead"></th:block>
 <div style="margin-right: 50px; margin-left: 50px; text-align:center; margin-top: 60px;">
-<h2 class="display-1">Lista de Usuarios</h2>
+<h2 class="display-1">Pedidos</h2>
 	<table  class="table table-sm table-dark">
 		<div class="table-responsive">
 			<table class="table align-middle">
@@ -14,31 +14,20 @@
 	        		<tr>
 	        			<th>Fecha</th>
 	        			<th>Metodo de Pago</th>
-	        			<th>E-Mail</th>
-	        			<th>Clave</th>
-	        			<th>Nombre</th>
-	        			<th>Apellido 1</th>
-	        			<th>Apellido 2</th>
-	        			<th>Direccion</th>
-	        			<th>Localidad</th>
-	        			<th>Provincia</th>
-	        			<th>Telefono</th>
-	        			<th>DNI</th>
+	        			<th>Estado</th>
+	        			<th>Total</th>
+	        			<th>Opciones</th>
 	        		</tr>
-	        		<tbody th:each="user : ${usuarios}">
+	        		<tbody th:each="pedido : ${pedidos}">
 	        			<tr>
-	        				<td th:text="${user.id}"></td>
-	        				<td th:text="${user.id_rol}"></td>
-	        				<td th:text="${user.email}"></td>
-	        				<td th:text="${user.clave}"></td>
-	        				<td th:text="${user.nombre}"></td>
-	        				<td th:text="${user.apellido1}"></td>
-	        				<td th:text="${user.apellido2}"></td>
-	        				<td th:text="${user.direccion}"></td>
-	        				<td th:text="${user.localidad}"></td>
-	        				<td th:text="${user.provincia}"></td>
-	        				<td th:text="${user.telefono}"></td>
-	        				<td th:text="${user.dni}"></td>
+	        				<td th:text="${pedido.fecha}"></td>
+	        				<td th:text="${pedido.metodo_pago}"></td>
+	        				<td th:text="${pedido.estado}"></td>
+	        				<td th:text="${pedido.total}"></td>
+	        				<td>
+	        					<a class="btn btn-secondary" th:href="@{/perfil/detalles/}+${pedido.id}">Ver</a>
+	        					<a class="btn btn-danger" th:href="@{/perfil/cancelar/}+${pedido.id}">Cancelar</a>
+	        				</td>
 	        			</tr>
 	        		</tbody>
 	      		</thead>

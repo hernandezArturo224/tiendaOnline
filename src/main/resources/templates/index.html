@@ -2,6 +2,7 @@
 <html>
 <head>
 <th:block th:insert="fragments/head"></th:block>
+<link th:href="@{/css/index.css}" rel="stylesheet">
 </head>
 <body>
 <th:block th:insert="fragments/navHead"></th:block>
@@ -10,34 +11,38 @@
 	<th:block th:insert="fragments/menu"></th:block>
 </div>
 
-<div style="margin-right: 50px; margin-left: 50px; text-align:center; margin-top: 100px;">
-<th:block th:insert="fragments/buscador"></th:block> 
-	<table  class="table table-sm table-dark">
-		<div class="table-responsive">
-			<table class="table align-middle">
-				 <thead>
-        			<tr>
-        				<th>Nombre</th>
-        				<th>Descripcion</th>
-        				<th><a  class="link-secondary" th:href="@{/precio}">Precio</a></th>
-        				<th><a  class="link-secondary" th:href="@{/valoracion}">Valoración media</a></th>
-        			</tr>
-        		<tbody th:each="producto : ${productos}">
-        			<tr>
-        				<td th:text="${producto.producto.nombre}"></td>
-        				<td th:text="${producto.producto.descripcion}"></td>
-        				<td th:text="${producto.producto.precio}"></td>
-        				<td th:text="${producto.valoracionMedia}"></td>
-        				<td>
-        					<a class="btn btn-success" th:href="@{/carrito/putcarrito/}+${producto.producto.id}">Comprar</a>
-        					<a class="btn btn-secondary" th:href="@{/verdetalles/}+${producto.producto.id}">Ver</a>
-        				</td>
-        			</tr>
-        		</tbody>
-      		</thead>
-		</table>
-	</div>
-</table>	
+<div class="container pb-5 mt-n2 mt-md-n3">
+    <div class="row">
+   
+        <div class="col-xl-9 col-md-8">
+            <h2 ><span>Productos</span></h2>
+             <th:block th:insert="fragments/buscador"></th:block> 
+			<div th:each="producto : ${productos}" style="background-color: #FAFAFA; border: 1px solid #EFEFEF; margin-top: 5px; padding: 10px;">
+            <!-- Item-->
+            <div class="d-sm-flex justify-content-between my-4 pb-4 " >
+                <div class="media d-block d-sm-flex text-center text-sm-left">
+                    <a class="cart-item-thumb mx-auto mr-sm-4" th:href="@{/verdetalles/}+${producto.producto.id}" ><img th:src="${producto.producto.imagen}"  width="1000"  alt="Product"></a>
+                    <div class="media-body pt-3" style="margin-left: 10px;">
+                        <h3 class="product-card-title font-weight-semibold border-0 pb-0"><a th:href="@{/verdetalles/}+${producto.producto.id}" th:text="${producto.producto.nombre}"></a></h3>
+                        <div class="font-size-sm"><span class="text-muted mr-2">Valoracion Media:</span></div>
+                        <div class="font-size-sm"><span th:text="${producto.valoracionMedia}"></span> / 5.0 </div>
+                        <div class="font-size-lg text-primary pt-2" ><span th:text="${producto.producto.precio}"></span>€</div>
+                    </div>
+                </div>
+                <div class="pt-2 pt-sm-0 pl-sm-3 mx-auto mx-sm-0 text-center text-sm-left" style="max-width: 10rem;">
+                    <a class="btn btn-outline-secondary btn-sm btn-block mb-2" type="button" th:href="@{/carrito/putcarrito/}+${producto.producto.id}">
+                        Comprar</a>
+                    <a class="btn btn-outline-info btn-sm btn-block mb-2" type="button" th:href="@{/verdetalles/}+${producto.producto.id}">
+                        Ver Detalles</a>    
+                   
+                </div>
+            </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
 </div>
 </body>
 </html>
