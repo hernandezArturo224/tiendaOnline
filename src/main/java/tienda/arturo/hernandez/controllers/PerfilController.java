@@ -13,10 +13,7 @@ import java.util.*;
 
 import javax.servlet.http.HttpSession;
 
-import tienda.arturo.hernandez.services.Detalles_pedidoService;
-import tienda.arturo.hernandez.services.PedidosService;
-import tienda.arturo.hernandez.services.ProductosService;
-import tienda.arturo.hernandez.services.UsuariosService;
+import tienda.arturo.hernandez.services.*;
 import tienda.arturo.hernandez.utilidades.Util;
 
 @Controller
@@ -34,6 +31,9 @@ public class PerfilController {
 	
 	@Autowired
 	private UsuariosService serUsuarios;
+	
+	@Autowired
+	private ValoracionesService serValoraciones;
 	
 	@GetMapping("")
 	public String muestraPerfil() {
@@ -90,6 +90,33 @@ public class PerfilController {
 		serUsuarios.guardarUsuario(user);
 		sesion.setAttribute("user", user);
 		return "redirect:/perfil";
+	}
+	
+	@GetMapping("/valorar/{id}")
+	public String valorarProducto(@PathVariable("id") int id,HttpSession sesion,Model model) {
+		Productos producto = serProductos.getProductoFromId(id);
+		Usuarios usuario = (Usuarios)sesion.getAttribute("user");
+		
+		List<Valoraciones> val = serValoraciones.getValoracionUsuario(usuario.getId(), producto.getId());
+		
+		Valoraciones valoracion = new Valoraciones();
+		if(val.size() == 0) {
+			valoracion.setProducto(producto.getId());
+			valoracion.setUsuario(usuario.getId());
+		}else {
+			valoracion = val.get(0);
+		}
+		
+		model.addAttribute("producto",producto);
+		model.addAttribute("valoracion",valoracion);
+		return "perfil/valorar";
+	}
+	
+	@PostMapping("/valorar/submit")
+	public String valorarProductoSubmit(@ModelAttribute Valoraciones valoracion) {
+		serValoraciones.guardarValoracion(valoracion);
+		
+		return "redirect:/perfil/pedidos";
 	}
 
 }

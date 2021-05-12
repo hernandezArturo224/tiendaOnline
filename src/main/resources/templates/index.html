@@ -21,7 +21,7 @@
             <!-- Item-->
             <div class="d-sm-flex justify-content-between my-4 pb-4 " >
                 <div class="media d-block d-sm-flex text-center text-sm-left">
-                    <a class="cart-item-thumb mx-auto mr-sm-4" th:href="@{/verdetalles/}+${producto.producto.id}" ><img th:src="${producto.producto.imagen}"  width="1000"  alt="Product"></a>
+                    <p class="cart-item-thumb mx-auto mr-sm-4" th:href="@{/verdetalles/}+${producto.producto.id}" ><img th:src="${producto.producto.imagen}"  width="1000"  alt="Product"></p>
                     <div class="media-body pt-3" style="margin-left: 10px;">
                         <h3 class="product-card-title font-weight-semibold border-0 pb-0"><a th:href="@{/verdetalles/}+${producto.producto.id}" th:text="${producto.producto.nombre}"></a></h3>
                         <div class="font-size-sm"><span class="text-muted mr-2">Valoracion Media:</span></div>

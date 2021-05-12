@@ -27,6 +27,9 @@
 	        				<td>
 	        					<a class="btn btn-secondary" th:href="@{/perfil/detalles/}+${pedido.id}">Ver</a>
 	        					<a class="btn btn-danger" th:href="@{/perfil/cancelar/}+${pedido.id}">Cancelar</a>
+	        					<span th:if="${pedido.estado == 'enviado'}">
+	        						<a class="btn btn-info" th:href="@{/perfil/pdf/}+${pedido.id}">Descargar PDF</a>
+	        					</span>
 	        				</td>
 	        			</tr>
 	        		</tbody>

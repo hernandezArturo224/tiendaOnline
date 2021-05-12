@@ -17,5 +17,13 @@ public class ValoracionesService {
 	public List<Valoraciones> getValoracionesFromProducto(int producto){
 		return	rep.findByProducto(producto);
 	}
+	
+	public void guardarValoracion(Valoraciones valoracion) {
+		rep.save(valoracion);
+	}
+	
+	public List<Valoraciones> getValoracionUsuario(int usuario,int producto) {
+		return rep.buscarValoracionUsuario(usuario, producto);
+	}
 
 }

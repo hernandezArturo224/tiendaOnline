@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<th:block th:insert="fragments/head"></th:block>
+<style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link th:href="@{css/signin.css}" rel="stylesheet">
+</head>
+<body>
+<th:block th:insert="fragments/navHead"></th:block>
+<div class="d-flex justify-content-center container mt-5">
+    <div class="card p-3 bg-white"><i class="fa fa-apple"></i>
+        <div class="about-product text-center mt-2"><img th:src="${producto.imagen}" width="300">
+            <div>
+                <h4 th:text="${producto.nombre}"></h4>
+                <h6 class="mt-0 text-black-50" th:text="${producto.descripcion}"></h6>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between total font-weight-bold mt-4"><span th:text="${producto.precio}"></span><span> &euro;</span></div>
+    </div>
+</div>
+
+<main class="form-signin">
+	<div style="margin: 10% 10% 10% 10%;">
+		<form method="post" style="text-align: center;" th:object="${valoracion}" th:action="@{/perfil/valorar/submit}">
+			<div class="form-floating">
+				<input type="hidden"  class="form-control" id="id"  value="3" style="margin: 5px;" name="id" th:field="*{id}" placeholder="id"/>
+				<label for="id">Id</label>
+			</div>
+			
+			<div class="form-floating">
+				<input type="hidden"  class="form-control" id="producto"  value="3" style="margin: 5px;" name="producto" th:field="*{producto}" placeholder="id"/>
+				<label for="producto">producto</label>
+			</div>
+			
+			<div class="form-floating">
+				<input type="hidden"  class="form-control" id="usuario"  value="3" style="margin: 5px;" name="usuario" th:field="*{usuario}" placeholder="id"/>
+				<label for="usuario">usuario</label>
+			</div>
+			
+			<span th:if="${valoracion.id == 0}">
+			<div class="form-floating">
+				<select class="form-select" name="valoracion" id="valoracion" th:field="*{valoracion}">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+				</select>
+				<label for="valoracion">Valoracion</label>
+			</div>
+			</span>	
+			
+			<span  th:if="${valoracion.id != 0}">
+			<div class="form-floating">
+					<input type="text"  class="form-control" id="valoracion"  value="3" style="margin: 5px;" name="valoracion" th:field="*{valoracion}" readonly/>
+					<label for="valoracion">Valoracion</label>
+			</div>
+			</span>
+			
+			
+				<span th:if="${valoracion.id == 0}">
+				<div class="form-floating">
+					<input type="text"  class="form-control" id="comentario"  value="3" style="margin: 5px;" name="comentario" th:field="*{comentario}" placeholder="Comentarios..."/>
+					<label for="comentario">Comentario</label>
+				</div>
+				</span>
+				
+				<span th:if="${valoracion.id != 0}">
+				<div class="form-floating">
+					<input type="text"  class="form-control" id="comentario"  value="3" style="margin: 5px;" name="comentario" th:field="*{comentario}" placeholder="Comentarios..." readonly/>
+					<label for="comentario">Comentario</label>
+				</div>		
+				</span>
+				
+			<span th:if="${valoracion.id == 0}">
+				<input type="submit" class="w-100 btn btn-lg btn-primary" name="btnSubmit" value="Guardar" />
+			</span>
+		</form>
+		</div>
+	</main>	
+	<th:block th:insert="fragments/footer"></th:block> 
+
+
+</body>
+</html>
