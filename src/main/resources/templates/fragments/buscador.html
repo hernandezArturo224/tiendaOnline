@@ -6,12 +6,24 @@
 </head>
 <body class="text-center" >
 	<form method="get" th:action="@{/busqueda}">
-		<div class="form-floating">
-				<input class="form-control"  type="text" style="margin: 5px;" id="busca" name="busca"/>
-				<label for="busca">Introduce nombre, descripcion de un producto...</label>  
-				<input class="btn btn-primary" type="submit" value="Buscar" />
-			</div>
+			<div class="input-group">
+			  	<input type="search" class="form-control rounded"  id="busca" name="busca" placeholder="Introduce nombre, descripcion de un producto" aria-label="Search"
+			    	aria-describedby="search-addon" />
+			    <input type="number"  class="form-control rounded" style="margin-left: 3px;" id="precio" placeholder="Introduce el precio a buscar" name="precio"/> 
+			    <select class="form-select rounded" style="margin-left: 3px;" name="categoria" id="categoria" >
+			    	<option value="0">Sin categoria</option>
+			    <div th:each="categoria : ${session.listaCategorias}">
+			    	<option th:text="${categoria.nombre}" th:value="${categoria.id}"></option>
+			    </div>
 			
+			    </select>
+			  	<button type="submit" class="btn btn-outline-primary" style="margin-left: 3px;" >Buscar</button>
+			</div>
 	</form>
+	<div class="input-group" style="margin-top: 5px;">
+	<p>Ordenar por : </p>
+	<a class="btn btn-outline-primary" style="margin-left: 6px;" th:href="@{/precio}">Precio</a>
+	<a style="margin-left: 3px;" class="btn btn-outline-primary" th:href="@{/valoracion}">Valoracion</a>
+	</div>
 </body>
 </html>

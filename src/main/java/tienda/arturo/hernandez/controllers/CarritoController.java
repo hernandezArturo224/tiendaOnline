@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import tienda.arturo.hernandez.models.Detalles_pedido;
 import tienda.arturo.hernandez.models.Pedidos;
@@ -94,35 +95,46 @@ public class CarritoController {
 	}
 	
 	@PostMapping("/compraSubmit")
-	public String compraSubmit(HttpSession sesion,@RequestParam String metodoPago) {
-		Pedidos pedido = (Pedidos)sesion.getAttribute("pedido");
-		pedido.setMetodo_pago(metodoPago);
-		pedido = serPedidos.guardarPedido(pedido);
-		int idPedido = pedido.getId();
+	public String compraSubmit(HttpSession sesion,@RequestParam String metodoPago, RedirectAttributes redirect) {
+		Usuarios us = (Usuarios)sesion.getAttribute("user");
 		
-		List<ProductosPedido> carrito = (List<ProductosPedido>)sesion.getAttribute("carrito");
-		for(int i=0;i<carrito.size();i++) {
-			Detalles_pedido detalles = carrito.get(i).getDetalles();
-			detalles.setPedido(idPedido);
-			detalles.setImpuesto(carrito.get(i).getProducto().getImpuesto());
-			detalles.setProducto(carrito.get(i).getProducto().getId());
+		if(us.getDireccion().equals("")) {
+			redirect.addFlashAttribute("mensaje","Debes introducir la direccion para realizar la compra");
+			return "redirect:/perfil/editar";
+		}else {
+			Pedidos pedido = (Pedidos)sesion.getAttribute("pedido");
+			pedido.setMetodo_pago(metodoPago);
+			pedido = serPedidos.guardarPedido(pedido);
+			int idPedido = pedido.getId();
 			
-			int stock = carrito.get(i).getProducto().getStock() - detalles.getUnidades();
+			List<ProductosPedido> carrito = (List<ProductosPedido>)sesion.getAttribute("carrito");
+			for(int i=0;i<carrito.size();i++) {
+				Detalles_pedido detalles = carrito.get(i).getDetalles();
+				detalles.setPedido(idPedido);
+				detalles.setImpuesto(carrito.get(i).getProducto().getImpuesto());
+				detalles.setProducto(carrito.get(i).getProducto().getId());
+				
+				int stock = carrito.get(i).getProducto().getStock() - detalles.getUnidades();
+				
+				if(stock < 0) {
+					carrito.get(i).getProducto().setStock(0);
+					pedido.setEstado("cancelado");
+					serPedidos.guardarPedido(pedido);
+				}else {
+					carrito.get(i).getProducto().setStock(stock);
+				}
+				
+				
+				serProductos.guardarProducto(carrito.get(i).getProducto());
+				serDetalles.guardarDetallesPedido(detalles);
+			}//fin for
+			carrito.clear();
+			sesion.setAttribute("carrito", carrito);
+			sesion.removeAttribute("pedido");
 			
-			if(stock < 0) {
-				carrito.get(i).getProducto().setStock(0);
-				pedido.setEstado("cancelado");
-				serPedidos.guardarPedido(pedido);
-			}else {
-				carrito.get(i).getProducto().setStock(stock);
-			}
-			
-			
-			serProductos.guardarProducto(carrito.get(i).getProducto());
-			serDetalles.guardarDetallesPedido(detalles);
-		}//fin for
+			return "redirect:/";
+		}
 		
-		return "redirect:/";
 	}
 	
 	@GetMapping("/vaciar")

@@ -6,7 +6,7 @@
 <body>
 <th:block th:insert="fragments/navHead"></th:block>
 <div style="margin-right: 50px; margin-left: 50px; text-align:center; margin-top: 60px;">
-<h2 class="display-1">Pedidos</h2>
+<h2 class="display-1">Pedidos Cancelados</h2>
 	<table  class="table table-sm table-dark">
 		<div class="table-responsive">
 			<table class="table align-middle">
@@ -25,8 +25,7 @@
 	        				<td th:text="${pedido.estado}"></td>
 	        				<td th:text="${pedido.total}"></td>
 	        				<td>
-	        					<a class="btn btn-secondary" th:href="@{/perfil/detalles/}+${pedido.id}">Ver</a>
-	        					<a class="btn btn-danger" th:href="@{/perfil/cancelar/}+${pedido.id}">Cancelar</a>
+	        					<a class="btn btn-danger" th:href="@{/pedidos/cancelar/submit/}+${pedido.id}">Eliminar</a>
 	        				</td>
 	        			</tr>
 	        		</tbody>
@@ -35,6 +34,7 @@
 		</div>
 	</table>
 </div>	
+
 <th:block th:insert="fragments/footer"></th:block> 
 </body>
 </html>

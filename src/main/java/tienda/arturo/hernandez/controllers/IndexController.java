@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import tienda.arturo.hernandez.models.*;
+import tienda.arturo.hernandez.services.CategoriasService;
 import tienda.arturo.hernandez.services.MenuService;
 import tienda.arturo.hernandez.services.ProductosService;
 import tienda.arturo.hernandez.services.UsuariosService;
@@ -30,6 +31,9 @@ public class IndexController {
 	
 	@Autowired
 	private ValoracionesService serValoraciones;
+	
+	@Autowired
+	private CategoriasService serCategorias;
 	
 	private ArrayList<ProductosVal> productos =new ArrayList<ProductosVal>();
 	private static boolean precio=true;
@@ -47,6 +51,9 @@ public class IndexController {
 	
 	@GetMapping("")
 	public String goIndex(Model model,HttpSession sesion) {
+		List<Categorias> categorias = serCategorias.getListaCategorias();
+		sesion.setAttribute("listaCategorias", categorias);
+		
 		System.out.println("Pasando por controlador");
 		//Usuarios user = (Usuarios)model.asMap().get("user");
 		if(carritoBool) {
@@ -55,8 +62,8 @@ public class IndexController {
 		redireccion="/";
 		List<Productos> prod = (List<Productos>)serProductos.getListaProductos();
 		rellenaProductos(prod);
-		model.addAttribute("productos",productos);
 		
+		model.addAttribute("productos",productos);
 		return "index";
 	}
 	
@@ -84,11 +91,39 @@ public class IndexController {
 	}
 	
 	@GetMapping("/busqueda")
-	public String buscaProductos(@RequestParam String busca,Model model) {
+	public String buscaProductos(@RequestParam String busca,@RequestParam String precio,@RequestParam String categoria,Model model) {
 		System.out.println("Buscando...");
-		List<Productos>prod = (List<Productos>)serProductos.busquedaProductos(busca);
-		rellenaProductos(prod);
-		redireccion = "/busqueda?busca="+busca;
+		int cate = Integer.parseInt(categoria);
+		if(cate == 0) {
+			if(precio.equals("")) {
+				List<Productos>prod = (List<Productos>)serProductos.busquedaProductos(busca);
+				rellenaProductos(prod);
+			}else if(busca.equals("")){
+				double prec = Double.parseDouble(precio);
+				List<Productos>prod = (List<Productos>)serProductos.busquedaProductosPrecio(prec);
+				rellenaProductos(prod);
+			}else {
+				double prec = Double.parseDouble(precio);
+				List<Productos>prod = (List<Productos>)serProductos.busquedaProductosPrecio(busca,prec);
+				rellenaProductos(prod);
+			}
+		}else {
+			if(precio.equals("")) {
+				List<Productos>prod = (List<Productos>)serProductos.busquedaProductos(busca,cate);
+				rellenaProductos(prod);
+			}else if(busca.equals("")){
+				double prec = Double.parseDouble(precio);
+				List<Productos>prod = (List<Productos>)serProductos.busquedaProductosPrecio(prec,cate);
+				rellenaProductos(prod);
+			}else {
+				double prec = Double.parseDouble(precio);
+				List<Productos>prod = (List<Productos>)serProductos.busquedaProductosPrecio(busca,prec,cate);
+				rellenaProductos(prod);
+			}
+		}
+		
+		redireccion = "/busqueda?busca="+busca+"&precio="+precio+"&categoria="+categoria;
+		
 		model.addAttribute("productos",productos);
 		return "index";
 	}

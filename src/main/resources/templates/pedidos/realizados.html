@@ -25,8 +25,7 @@
 	        				<td th:text="${pedido.estado}"></td>
 	        				<td th:text="${pedido.total}"></td>
 	        				<td>
-	        					<a class="btn btn-secondary" th:href="@{/perfil/detalles/}+${pedido.id}">Ver</a>
-	        					<a class="btn btn-danger" th:href="@{/perfil/cancelar/}+${pedido.id}">Cancelar</a>
+	        					<a class="btn btn-success" th:href="@{/pedidos/enviar/submit/}+${pedido.id}">Enviar</a>
 	        				</td>
 	        			</tr>
 	        		</tbody>
@@ -35,6 +34,7 @@
 		</div>
 	</table>
 </div>	
+
 <th:block th:insert="fragments/footer"></th:block> 
 </body>
 </html>

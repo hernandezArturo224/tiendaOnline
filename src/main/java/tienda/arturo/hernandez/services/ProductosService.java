@@ -33,5 +33,28 @@ public class ProductosService {
 	public List<Productos> busquedaProductos(String busqueda){
 		return rep.buscarNombreDescripcion(busqueda);
 	}
+	
+	public List<Productos> busquedaProductosPrecio(/*String busqueda,*/ double precio){
+		//return rep.buscarNombreDescripcionPrecio(busqueda, precio);
+		return rep.buscarNombreDescripcionPrecio( precio);
+	}
+	
+	public List<Productos> busquedaProductosPrecio(String busqueda, double precio){
+		return rep.buscarNombreDescripcionPrecio(busqueda, precio);
+	}
+	
+	public List<Productos> busquedaProductos(String busqueda,int cate){
+		return rep.buscarNombreDescripcion(busqueda,cate);
+	}
+	
+	public List<Productos> busquedaProductosPrecio(/*String busqueda,*/ double precio,int cate){
+		//return rep.buscarNombreDescripcionPrecio(busqueda, precio);
+		return rep.buscarNombreDescripcionPrecio( precio, cate);
+	}
+	
+	public List<Productos> busquedaProductosPrecio(String busqueda, double precio, int cate){
+		return rep.buscarNombreDescripcionPrecio(busqueda, precio, cate);
+	}
+	
 
 }

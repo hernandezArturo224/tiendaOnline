@@ -39,7 +39,10 @@
 	        				<td th:text="${producto.impuesto}"></td>
 	        				<td>
 	        					<a class="btn btn-secondary" th:href="@{/productos/edit/}+${producto.id}">Editar</a>
-								<a class="btn btn-danger" th:href="@{/productos/del/}+${producto.id}" >Eliminar</a>
+	        					<span th:if="${session.user.id_rol == 1}">
+	        						<a class="btn btn-danger" th:href="@{/productos/del/}+${producto.id}" >Eliminar</a>
+	        					</span>
+								
 	        				</td>
 	        			</tr>
 	        		</tbody>
@@ -50,5 +53,6 @@
 	
 	
 </div>	
+<th:block th:insert="fragments/footer"></th:block> 
 </body>
 </html>

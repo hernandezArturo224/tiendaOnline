@@ -25,5 +25,21 @@ public class PedidosService {
 	public Pedidos getPedidoById(int id) {
 		return rep.findById(id);
 	}
+	
+	public List<Pedidos> getPedidosEnviar(){
+		return rep.findByEstado("Sin confirmar");
+	}
+	
+	public List<Pedidos> getPedidosCancelados(){
+		return rep.findByEstado("cancelado");
+	}
+	
+	public void eliminarPedido(Pedidos pedido) {
+		rep.delete(pedido);
+	}
+	
+	public String getMaxfactura() {
+		return rep.getMaxPedido();
+	}
 
 }

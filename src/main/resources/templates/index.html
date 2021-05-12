@@ -7,10 +7,10 @@
 <body>
 <th:block th:insert="fragments/navHead"></th:block>
 
-<div th:if="${session.menu != null}">
 	<th:block th:insert="fragments/menu"></th:block>
-</div>
 
+
+<div>
 <div class="container pb-5 mt-n2 mt-md-n3">
     <div class="row">
    
@@ -44,5 +44,7 @@
 </div>
 
 </div>
+
+<th:block th:insert="fragments/footer"></th:block> 
 </body>
 </html>
