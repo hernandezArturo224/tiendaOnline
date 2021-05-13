@@ -36,27 +36,33 @@
 			</div>
 			
 			<div class="form-floating">
-				<input type="text"  class="form-control" id="email" style="margin: 5px;" name="email" placeholder="Introduce el email"/>
+				<input type="text"  class="form-control" id="email" style="margin: 5px;" name="email" th:field="*{email}" placeholder="Introduce el email"/>
 				<label for="email">Email</label>
+				<h6 th:text="${mensaje}"></h6>
+				<span class="help-block" id="email-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Errores</span>
+				
 			</div>
 			<div class="form-floating">
-				<input type="password"  id="clave" class="form-control" style="margin: 5px;" name="clave" placeholder="Introduce la clave"/>
+				<input type="password"  id="clave" class="form-control" style="margin: 5px;" name="clave" th:field="*{clave}" placeholder="Introduce la clave"/>
 				<label for="clave">Password</label>
+				<span class="help-block" id="email-error" th:if="${#fields.hasErrors('clave')}" th:errors="*{clave}">Errores</span>
 			</div>
 			<div class="form-floating">
-				<input type="text"  id="nombre" class="form-control" style="margin: 5px;" name="nombre" placeholder="Introduce el nombre"/>
+				<input type="text"  id="nombre" class="form-control" style="margin: 5px;" name="nombre" th:field="*{nombre}" placeholder="Introduce el nombre"/>
 				<label for="nombre">Nombre</label>
+				<span class="help-block" id="email-error" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Errores</span>
 			</div>
 			<div class="form-floating">
-				<input type="text"  id="apellido1" class="form-control" style="margin: 5px;" name="apellido1" placeholder="Introduce el Primer Apellido"/>
+				<input type="text"  id="apellido1" class="form-control" style="margin: 5px;" name="apellido1" th:field="*{apellido1}" placeholder="Introduce el Primer Apellido"/>
 				<label for="apellido1">Primer Apellido</label>
+				<span class="help-block" id="email-error" th:if="${#fields.hasErrors('apellido1')}" th:errors="*{apellido1}">Errores</span>
 			</div>
 			<div class="form-floating">
-				<input type="text"  id="apellido2" class="form-control" style="margin: 5px;" name="apellido2" placeholder="Introduce el Segundo Apellido"/>
+				<input type="text"  id="apellido2" class="form-control" style="margin: 5px;" name="apellido2" th:field="*{apellido2}" placeholder="Introduce el Segundo Apellido"/>
 				<label for="apellido2">Segundo Apellido</label>
 			</div>
 			<div class="form-floating">
-				<input type="text"  id="dni" class="form-control" style="margin: 5px;" name="dni" placeholder="Introduce el dni"/>
+				<input type="text"  id="dni" class="form-control" style="margin: 5px;" name="dni" th:field="*{dni}" placeholder="Introduce el dni"/>
 				<label for="dni">DNI</label>
 			</div>
 			<div class="form-floating">
@@ -68,15 +74,15 @@
 				<label for="provincia">Provincia</label>
 			</div>
 			<div class="form-floating">
-				<input type="text"  id="localidad" class="form-control" style="margin: 5px;" name="localidad" placeholder="Introduce la localidad"/>
+				<input type="text"  id="localidad" class="form-control" style="margin: 5px;" name="localidad" th:field="*{localidad}" placeholder="Introduce la localidad"/>
 				<label for="localidad">Localidad</label>
 			</div>
 			<div class="form-floating">
-				<input type="text"  id="direccion" class="form-control" style="margin: 5px;" name="direccion" placeholder="Introduce la direccion"/>
+				<input type="text"  id="direccion" class="form-control" style="margin: 5px;" name="direccion" th:field="*{direccion}" placeholder="Introduce la direccion"/>
 				<label for="direccion">Dirección</label>
 			</div>
 			<div class="form-floating">
-				<input type="text"  id="telefono" class="form-control" style="margin: 5px;" name="telefono" placeholder="Introduce el teléfono"/>
+				<input type="text"  id="telefono" class="form-control" style="margin: 5px;" name="telefono" th:field="*{telefono}" placeholder="Introduce el teléfono"/>
 				<label for="telefono">Telefono</label>
 			</div>
 			<input type="submit" class="w-100 btn btn-lg btn-primary" name="btnSubmit" value="Registrarse" />

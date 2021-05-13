@@ -3,6 +3,8 @@ package tienda.arturo.hernandez.models;
 import java.io.Serializable;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 
 @Entity
@@ -14,13 +16,18 @@ public class Usuarios implements Serializable{
 	private int id;
 	
 	private int id_rol;
-
+	
+	@Email(message = "No se ha introducido un formato de email valido")
+	@NotBlank(message = "El email es obligatorio")
 	private String email;
 	
+	@NotBlank(message = "La clave es obligatoria")
 	private String clave;
 	
+	@NotBlank(message = "El nombre es obligatorio")
 	private String nombre;
 	
+	@NotBlank(message = "El primer apellido es obligatorio")
 	private String apellido1;
 	
 	private String apellido2;

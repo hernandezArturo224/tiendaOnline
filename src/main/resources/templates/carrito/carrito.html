@@ -31,8 +31,10 @@
         		</tbody>
         		<tr style="text-align: center;">
         			<td>Total: <span  th:text="${session.total}"></span> €</td>
-        			<td><a th:href="@{/carrito/comprar}">Comprar</a></td>
-        			<td><a th:href="@{/carrito/vaciar}">Vaciar</a></td>
+        			<span th:if="${session.carrito.size > 0}">
+	        			<td><a th:href="@{/carrito/comprar}">Comprar</a></td>
+	        			<td><a th:href="@{/carrito/vaciar}">Vaciar</a></td>
+        			</span>
         		</tr>
       		</thead>
 		</table>

@@ -8,12 +8,28 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+
 import tienda.arturo.hernandez.models.*;
+
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.*;
 
 import javax.servlet.http.HttpSession;
 
 import tienda.arturo.hernandez.services.*;
+import tienda.arturo.hernandez.utilidades.PDFHeaderFooter;
 import tienda.arturo.hernandez.utilidades.Util;
 
 @Controller
@@ -35,9 +51,14 @@ public class PerfilController {
 	@Autowired
 	private ValoracionesService serValoraciones;
 	
+	@Autowired
+	private RolesService serRoles;
+	
 	@GetMapping("")
-	public String muestraPerfil() {
+	public String muestraPerfil(Model model) {
+		List<Roles> roles = serRoles.getAllRoles();
 		
+		model.addAttribute("roles",roles);
 		return "perfil/perfil";
 	}
 	
@@ -117,6 +138,92 @@ public class PerfilController {
 		serValoraciones.guardarValoracion(valoracion);
 		
 		return "redirect:/perfil/pedidos";
+	}
+	
+	@GetMapping("/pdf/{id}")
+	public String generarPDF(@PathVariable("id") int id) {
+		Pedidos pedido = serPedidos.getPedidoById(id);
+		List<Detalles_pedido> lineas = serDetalles.getDetallesFromPedido(pedido.getId());
+		genPDF(pedido,lineas);
+		
+		//return "classpath:/static/pdf/factura-1.pdf";
+		return "redirect:/perfil/pedidos";
+	}
+	
+	
+	public void genPDF(Pedidos pedido, List<Detalles_pedido> lineas) {
+		PdfWriter writer = null;
+		Document documento = new Document(PageSize.A4, 20, 20, 70, 50);
+		Usuarios user = serUsuarios.getUserbyId(pedido.getUsuario());
+		
+	    try {      
+	    	//Obtenemos la instancia del archivo a utilizar
+	    	File fileLocation = new File("C:\\springWrokspace\\TIENDA_ARTURO_HERNANDEZ_NUNEZ\\src\\main\\resources\\static\\pdf\\"+pedido.getNum_factura()+".pdf");
+	    	
+	    	writer = PdfWriter.getInstance(documento, new FileOutputStream(fileLocation));
+	    	
+		    //Para insertar cabeceras/pies en todas las páginas
+	    	writer.setPageEvent(new PDFHeaderFooter());
+	        
+		    //Abrimos el documento para edición
+		    documento.open();
+		    
+		    //PARRAFOS
+			Paragraph paragraph = new Paragraph();
+			//String contenido = "esto es un párrafo";
+			//paragraph.setSpacingBefore(100);
+			paragraph.add(pedido.getNum_factura() +" "+user.getNombre()+" "+user.getApellido1()+" "+user.getApellido2());
+			paragraph.add("\n\n");
+		    
+	    	documento.add(paragraph);
+	    	
+	    	
+	    	//TABLAS
+		    
+			//Instanciamos una tabla de X columnas
+		    PdfPTable tabla = new PdfPTable(5);
+		    Phrase texto = new Phrase("Fecha");
+			PdfPCell cabecera = new PdfPCell(texto);
+			cabecera.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			cabecera.setBorderWidth(1);
+			tabla.addCell(cabecera);
+			
+			texto = new Phrase("Metodo de pago");
+			cabecera = new PdfPCell(texto);
+			cabecera.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			cabecera.setBorderWidth(1);
+			tabla.addCell(cabecera);
+			
+			texto = new Phrase("Estado");
+			cabecera = new PdfPCell(texto);
+			cabecera.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			cabecera.setBorderWidth(1);
+			tabla.addCell(cabecera);
+			
+			texto = new Phrase("Numero de factura");
+			cabecera = new PdfPCell(texto);
+			cabecera.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			cabecera.setBorderWidth(1);
+			tabla.addCell(cabecera);
+			
+			texto = new Phrase("Total");
+			cabecera = new PdfPCell(texto);
+			cabecera.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			cabecera.setBorderWidth(1);
+			tabla.addCell(cabecera);
+			
+		    
+		    documento.add(tabla);
+	    	
+		    documento.close(); //Cerramos el documento
+		    writer.close(); //Cerramos writer
+		    
+			
+	    } catch (Exception ex) {
+	    	ex.getMessage();
+	    	ex.printStackTrace();
+	    }
+
 	}
 
 }

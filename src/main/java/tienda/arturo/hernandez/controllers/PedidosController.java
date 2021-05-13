@@ -54,7 +54,7 @@ public class PedidosController {
 		Configuracion maxPedido = serConfig.getValorClave("numFactura");
 		
 		maxPedido.setValor(sumaUno(maxPedido.getValor()));
-		pedido.setNum_factura(new Date().toString() +"-"+maxPedido.getValor());
+		pedido.setNum_factura("factura-"+maxPedido.getValor());
 		serPedidos.guardarPedido(pedido);
 		serConfig.actualizarConfig(maxPedido);
 		

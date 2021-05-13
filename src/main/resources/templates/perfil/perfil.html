@@ -16,7 +16,11 @@
                             <div class="card-block text-center text-white">
                                 <div class="m-b-25"> <img  width="80" height="80" th:src="${session.user.imagen}"> </div>
                                 <h6 class="f-w-600" th:text="${session.user.nombre}"></h6>
-                                <p>Web Designer</p> <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+                                <span th:each="rol : ${roles}">
+                                	<span th:if="${rol.id == session.user.id_rol}">
+                                		<p th:text="${rol.rol}"></p> <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+                                	</span>
+                            	</span>
                             </div>
                         </div>
                         <div class="col-sm-8">

@@ -26,9 +26,12 @@
 	        				<td th:text="${pedido.total}"></td>
 	        				<td>
 	        					<a class="btn btn-secondary" th:href="@{/perfil/detalles/}+${pedido.id}">Ver</a>
-	        					<a class="btn btn-danger" th:href="@{/perfil/cancelar/}+${pedido.id}">Cancelar</a>
+	        					<span th:if="${pedido.estado != 'enviado'}">
+	        						<a class="btn btn-danger" th:href="@{/perfil/cancelar/}+${pedido.id}">Cancelar</a>
+	        					</span>
 	        					<span th:if="${pedido.estado == 'enviado'}">
 	        						<a class="btn btn-info" th:href="@{/perfil/pdf/}+${pedido.id}">Descargar PDF</a>
+	        						<a class="btn btn-info" th:href="@{/pdf/}+${pedido.num_factura}+'.pdf'">Ver PDF</a>
 	        					</span>
 	        				</td>
 	        			</tr>

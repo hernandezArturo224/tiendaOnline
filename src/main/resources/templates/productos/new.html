@@ -34,18 +34,23 @@
              <legend th:if="${productos.id ==0}">
                     Nuevo Producto
              </legend>
+             <div class="form-floating">
 			<input id="id" name="id" type="hidden" placeholder=""  required="" th:field="*{id}">
+			</div>
 			<div class="form-floating">
 				<input class="form-control" type="text" style="margin: 5px;" id="nombre" name="nombre"  th:field="*{nombre}" placeholder="Introduce el nombre del producto"/>
 				<label for="nombre">Nombre</label>  
+				<span class="help-block" id="nombre-error" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Errores</span>
 			</div>
 			<div class="form-floating">
 				<input type="text" class="form-control" style="margin: 5px;" name="descripcion" id="descripcion" th:field="*{descripcion}" placeholder="Introduce la descripcion del producto"/>
 				<label for="descripcion">Descripcion</label>
+				<span class="help-block" id="descripcion-error" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}">Errores</span>
 			</div>
 			<div class="form-floating">
-				<input class="form-control" id="precio" type="text" style="margin: 5px;" name="precio" th:field="*{precio}" placeholder="Introduce el precio del producto"/>
+				<input class="form-control" id="precio" type="number" style="margin: 5px;" name="precio" th:field="*{precio}" placeholder="Introduce el precio del producto"/>
 				<label for="precio">Precio</label>
+				<span class="help-block" id="descripcion-error" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}">Errores</span>
 			</div>
 			<div class="form-floating">
 				<select class="form-select" id="id_categoria" name="id_categoria"  th:field="*{id_categoria}" >

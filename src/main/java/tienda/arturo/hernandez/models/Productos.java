@@ -9,6 +9,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 
 @Entity
@@ -22,10 +26,15 @@ public class Productos implements Serializable{
 	
 	private int id_categoria;
 	
+	@NotBlank(message = "El nombre es obligatorio")
 	private String nombre;
 	
+	@NotBlank(message = "La descripcion es obligatoria")
 	private String descripcion;
 	
+	
+	@Min(value=100, message="El precio mínimo es 2")
+	@Max(value=10000000, message="El precio máximo es 100")
 	private double precio;
 	
 	private int stock;

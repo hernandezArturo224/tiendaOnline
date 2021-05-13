@@ -4,9 +4,12 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -53,7 +56,7 @@ public class ProductosController {
 	}
 	
 	@PostMapping("/edit/submit")
-	public String editSubmit(@ModelAttribute Productos producto, @RequestParam String baja) {
+	public String editSubmit( @ModelAttribute Productos producto, @RequestParam String baja) {
 		if(!baja.equals("")) {
 			Timestamp fecha_baja = StringUtilities.getTimestampFromString(baja);
 			producto.setFecha_baja(fecha_baja);
@@ -72,9 +75,17 @@ public class ProductosController {
 	}
 	
 	@PostMapping("/insertar/submit")
-	public String insertaSubmit(@ModelAttribute Productos producto) {
-		serProductos.guardarProducto(producto);
-		return "redirect:/productos";
+	public String insertaSubmit(@Valid @ModelAttribute Productos producto,BindingResult binding,Model model) {
+		if(binding.hasErrors()) {
+			List<Categorias> categorias = (List)serCategorias.getListaCategorias();
+			
+			model.addAttribute("categorias",categorias);
+			model.addAttribute("productos",producto);
+			return "productos/new";
+		}else {
+			serProductos.guardarProducto(producto);
+			return "redirect:/productos";
+		}
 	}
 	
 }
