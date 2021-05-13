@@ -31,7 +31,9 @@
 	        				<td th:text="${detalle.impuesto}"></td>
 	        				<td th:text="${detalle.total}"></td>
 	        				<td>
-	        					<a class="btn btn-secondary" th:href="@{/perfil/valorar/}+${detalle.producto}">Valorar</a>
+	        					<span th:if="${estado == 'enviado'}">
+	        						<a class="btn btn-secondary" th:href="@{/perfil/valorar/}+${detalle.producto}">Valorar</a>
+	        					</span>
 	        					<a class="btn btn-info" th:href="@{/verdetalles/}+${detalle.producto}">Ver Producto</a>
 	        				</td>
 	        			</tr>

@@ -5,6 +5,7 @@ import java.util.*;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,7 @@ import tienda.arturo.hernandez.services.MenuService;
 import tienda.arturo.hernandez.services.ProductosService;
 import tienda.arturo.hernandez.services.UsuariosService;
 import tienda.arturo.hernandez.services.ValoracionesService;
+import tienda.arturo.hernandez.utilidades.UsoLogger;
 
 @Controller
 @RequestMapping("")
@@ -35,6 +37,8 @@ public class IndexController {
 	@Autowired
 	private CategoriasService serCategorias;
 	
+	Logger log = UsoLogger.getLogger(IndexController.class);
+	
 	private ArrayList<ProductosVal> productos =new ArrayList<ProductosVal>();
 	private static boolean precio=true;
 	private static boolean valoracion=true;
@@ -44,6 +48,7 @@ public class IndexController {
 	
 	private void iniciaCarrito(HttpSession sesion) {
 		ArrayList<ProductosPedido> carrito = new ArrayList<ProductosPedido>();
+		log.info("Iniciando carrito");
 		sesion.setAttribute("carrito",carrito);
 		carritoBool=false;
 	}
@@ -53,8 +58,6 @@ public class IndexController {
 	public String goIndex(Model model,HttpSession sesion) {
 		List<Categorias> categorias = serCategorias.getListaCategorias();
 		sesion.setAttribute("listaCategorias", categorias);
-		
-		System.out.println("Pasando por controlador");
 		//Usuarios user = (Usuarios)model.asMap().get("user");
 		if(carritoBool) {
 			iniciaCarrito(sesion);
@@ -62,7 +65,7 @@ public class IndexController {
 		redireccion="/";
 		List<Productos> prod = (List<Productos>)serProductos.getListaProductos();
 		rellenaProductos(prod);
-		
+		log.info("Iniciando app");
 		model.addAttribute("productos",productos);
 		return "index";
 	}
@@ -75,6 +78,7 @@ public class IndexController {
 			ProductosVal nuevo = new ProductosVal(product,val);
 			productos.add(nuevo);
 		}
+		log.info("Productos rellenados");
 	}
 	
 	public double calculaMedia(Productos producto) {
@@ -87,8 +91,11 @@ public class IndexController {
 				media += valor.get(i).getValoracion();
 			}
 			double redondeo = Math.round(media/valor.size());
+			log.info("Media calculada");
 			return redondeo;
+			
 		}
+		
 	}
 	
 	@GetMapping("/busqueda")
@@ -108,6 +115,7 @@ public class IndexController {
 				List<Productos>prod = (List<Productos>)serProductos.busquedaProductosPrecio(busca,prec);
 				rellenaProductos(prod);
 			}
+			log.info("Busqueda sin categorias");
 		}else {
 			if(precio.equals("")) {
 				List<Productos>prod = (List<Productos>)serProductos.busquedaProductos(busca,cate);
@@ -121,6 +129,7 @@ public class IndexController {
 				List<Productos>prod = (List<Productos>)serProductos.busquedaProductosPrecio(busca,prec,cate);
 				rellenaProductos(prod);
 			}
+			log.info("Busqueda con categorias");
 		}
 		
 		redireccion = "/busqueda?busca="+busca+"&precio="+precio+"&categoria="+categoria;
@@ -132,6 +141,7 @@ public class IndexController {
 	@GetMapping("/precio")
 	public String orderPrecio(Model model) {
 		orderByPrecio();
+		log.info("Ordenando por precio");
 		model.addAttribute("productos",productos);
 		return "index";
 	}
@@ -139,6 +149,7 @@ public class IndexController {
 	@GetMapping("/valoracion")
 	public String orderValoracion(Model model) {
 		orderByValoracion();
+		log.info("Ordenando por valoracion");
 		model.addAttribute("productos",productos);
 		return "index";
 	}
@@ -149,6 +160,7 @@ public class IndexController {
 		double valoracion = calculaMedia(prod);
 		model.addAttribute("valoracion",valoracion);
 		model.addAttribute("producto",prod);
+		log.info("Entrando en detalles del producto"+prod.toString());
 		return "detalles";
 	}
 	

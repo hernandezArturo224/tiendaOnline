@@ -24,10 +24,14 @@ import tienda.arturo.hernandez.services.Detalles_pedidoService;
 import tienda.arturo.hernandez.services.PedidosService;
 import tienda.arturo.hernandez.services.ProductosService;
 import tienda.arturo.hernandez.utilidades.StringUtilities;
+import tienda.arturo.hernandez.utilidades.UsoLogger;
+import org.apache.log4j.Logger;
 
 @Controller
 @RequestMapping("/carrito")
 public class CarritoController {
+	
+	Logger log = UsoLogger.getLogger(CarritoController.class);
 	
 	@Autowired
 	private ProductosService serProductos;
@@ -41,9 +45,11 @@ public class CarritoController {
 	@GetMapping("")
 	public String verCarrito(Model model,HttpSession sesion){
 		if(sesion.getAttribute("user") == null) {
+			log.error("No hay usuario registrado");
 			return "/login";
 		}else {
 			List<ProductosPedido> carrito = (List<ProductosPedido>) sesion.getAttribute("carrito");
+			log.info("Entrando al carrito");
 			Double total = getTotal(carrito);
 			sesion.setAttribute("total", total);
 			return "carrito/carrito";
@@ -55,7 +61,6 @@ public class CarritoController {
 	public String putOnCarrito(@PathVariable("id") int id,HttpSession sesion) {
 		Productos prod = serProductos.getProductoFromId(id);
 		List<ProductosPedido> carrito = (List<ProductosPedido>) sesion.getAttribute("carrito");
-		
 		
 			int indice = repetidoCarrito(prod,carrito);
 			if(indice == -1) {
@@ -71,6 +76,8 @@ public class CarritoController {
 				float precio = carrito.get(indice).getDetalles().getPrecio_unidad();
 				carrito.get(indice).getDetalles().setTotal(unidades*precio);
 			}
+			
+			log.info("Agregado al carrito");
 		sesion.setAttribute("carrito", carrito);
 		return "redirect:"+IndexController.redireccion;
 	}
@@ -89,6 +96,7 @@ public class CarritoController {
 		
 		sesion.setAttribute("pedido", pedido);
 		
+		log.info("Entrando a realizar el pedido");
 		model.addAttribute("estado","Sin confirmar");
 		model.addAttribute("pedido",pedido);
 		return "carrito/confirmarCompra";
@@ -100,6 +108,7 @@ public class CarritoController {
 		
 		if(us.getDireccion().equals("")) {
 			redirect.addFlashAttribute("mensaje","Debes introducir la direccion para realizar la compra");
+			log.error("No hay direccion establecida");
 			return "redirect:/perfil/editar";
 		}else {
 			Pedidos pedido = (Pedidos)sesion.getAttribute("pedido");
@@ -108,6 +117,7 @@ public class CarritoController {
 			int idPedido = pedido.getId();
 			
 			List<ProductosPedido> carrito = (List<ProductosPedido>)sesion.getAttribute("carrito");
+			log.info("Metiendo productos...");
 			for(int i=0;i<carrito.size();i++) {
 				Detalles_pedido detalles = carrito.get(i).getDetalles();
 				detalles.setPedido(idPedido);
@@ -141,6 +151,7 @@ public class CarritoController {
 	public String vaciarCarrito(HttpSession sesion) {
 		List<ProductosPedido> carrito = (List<ProductosPedido>)sesion.getAttribute("carrito");
 		carrito.clear();
+		log.info("Carrito vaciado");
 		sesion.setAttribute("carrito", carrito);
 		return "redirect:/carrito";
 	}

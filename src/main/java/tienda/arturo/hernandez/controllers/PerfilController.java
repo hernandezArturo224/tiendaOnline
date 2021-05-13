@@ -79,7 +79,9 @@ public class PerfilController {
 	public String verDetallesPedido(@PathVariable("id") int id,Model model) {
 		List<Detalles_pedido> detalles = serDetalles.getDetallesFromPedido(id);
 		List<Productos> productos = (List<Productos>)serProductos.getListaProductos();
+		Pedidos pedidos = serPedidos.getPedidoById(id);
 		
+		model.addAttribute("estado",pedidos.getEstado());
 		model.addAttribute("productos",productos);
 		model.addAttribute("detalles",detalles);
 		return "perfil/detallesPedido";
@@ -158,7 +160,7 @@ public class PerfilController {
 		
 	    try {      
 	    	//Obtenemos la instancia del archivo a utilizar
-	    	File fileLocation = new File("C:\\springWrokspace\\TIENDA_ARTURO_HERNANDEZ_NUNEZ\\src\\main\\resources\\static\\pdf\\"+pedido.getNum_factura()+".pdf");
+	    	File fileLocation = new File("C:\\springWorkspace\\TIENDA_ARTURO_HERNANDEZ_NUNEZ\\src\\main\\resources\\static\\pdf\\"+pedido.getNum_factura()+".pdf");
 	    	
 	    	writer = PdfWriter.getInstance(documento, new FileOutputStream(fileLocation));
 	    	
@@ -236,13 +238,77 @@ public class PerfilController {
 			cabecera = new PdfPCell(texto);
 			cabecera.setBorderWidth(1);
 			tabla.addCell(cabecera);
-			
-			
-			
-			
-		    
 		    documento.add(tabla);
-	    	
+		    
+		    Paragraph parrafo = new Paragraph();
+		    parrafo.add("\n\n");
+		    parrafo.add("Detalles");
+		    parrafo.add("\n\n");
+		    documento.add(parrafo);
+		    
+		    PdfPTable tabla2 = new PdfPTable(5);
+		    Phrase texto2 = new Phrase("Producto");
+			PdfPCell cabecera2 = new PdfPCell(texto2);
+			cabecera2.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			cabecera2.setBorderWidth(1);
+			tabla2.addCell(cabecera2);
+			
+			texto2 = new Phrase("Precio Unitario");
+			cabecera2 = new PdfPCell(texto2);
+			cabecera2.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			cabecera2.setBorderWidth(1);
+			tabla2.addCell(cabecera2);
+			
+			texto2 = new Phrase("Unidades");
+			cabecera2 = new PdfPCell(texto2);
+			cabecera2.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			cabecera2.setBorderWidth(1);
+			tabla2.addCell(cabecera2);
+			
+			texto2 = new Phrase("Impuesto");
+			cabecera2 = new PdfPCell(texto2);
+			cabecera2.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			cabecera2.setBorderWidth(1);
+			tabla2.addCell(cabecera2);
+			
+			texto2 = new Phrase("Total");
+			cabecera2 = new PdfPCell(texto2);
+			cabecera2.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			cabecera2.setBorderWidth(1);
+			tabla2.addCell(cabecera2);
+			
+			for(int i=0; i<lineas.size(); i++) {
+				Detalles_pedido linea = lineas.get(i);
+				Productos producto = serProductos.getProductoFromId(linea.getProducto());
+				
+				texto2 = new Phrase(producto.getNombre());
+				cabecera2 = new PdfPCell(texto2);
+				cabecera2.setBorderWidth(1);
+				tabla2.addCell(cabecera2);
+				
+				texto2 = new Phrase(""+linea.getPrecio_unidad());
+				cabecera2 = new PdfPCell(texto2);
+				cabecera2.setBorderWidth(1);
+				tabla2.addCell(cabecera2);
+				
+				texto2 = new Phrase(""+linea.getUnidades());
+				cabecera2 = new PdfPCell(texto2);
+				cabecera2.setBorderWidth(1);
+				tabla2.addCell(cabecera2);
+				
+				texto2 = new Phrase(""+linea.getImpuesto());
+				cabecera2 = new PdfPCell(texto2);
+				cabecera2.setBorderWidth(1);
+				tabla2.addCell(cabecera2);
+				
+				texto2 = new Phrase(""+linea.getTotal());
+				cabecera2 = new PdfPCell(texto2);
+				cabecera2.setBorderWidth(1);
+				tabla2.addCell(cabecera2);
+			}
+		    
+		    
+	    	documento.add(tabla2);
 		    documento.close(); //Cerramos el documento
 		    writer.close(); //Cerramos writer
 		    
