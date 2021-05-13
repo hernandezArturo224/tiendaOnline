@@ -212,6 +212,34 @@ public class PerfilController {
 			cabecera.setBorderWidth(1);
 			tabla.addCell(cabecera);
 			
+			texto = new Phrase(pedido.getFecha().toString());
+			cabecera = new PdfPCell(texto);
+			cabecera.setBorderWidth(1);
+			tabla.addCell(cabecera);
+			
+			texto = new Phrase(pedido.getMetodo_pago());
+			cabecera = new PdfPCell(texto);
+			cabecera.setBorderWidth(1);
+			tabla.addCell(cabecera);
+			
+			texto = new Phrase(pedido.getEstado());
+			cabecera = new PdfPCell(texto);
+			cabecera.setBorderWidth(1);
+			tabla.addCell(cabecera);
+			
+			texto = new Phrase(pedido.getNum_factura());
+			cabecera = new PdfPCell(texto);
+			cabecera.setBorderWidth(1);
+			tabla.addCell(cabecera);
+			
+			texto = new Phrase(""+pedido.getTotal());
+			cabecera = new PdfPCell(texto);
+			cabecera.setBorderWidth(1);
+			tabla.addCell(cabecera);
+			
+			
+			
+			
 		    
 		    documento.add(tabla);
 	    	

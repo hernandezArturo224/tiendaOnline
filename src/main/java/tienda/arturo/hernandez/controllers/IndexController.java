@@ -86,7 +86,8 @@ public class IndexController {
 			for(int i=0; i<valor.size(); i++) {
 				media += valor.get(i).getValoracion();
 			}
-			return media/valor.size();
+			double redondeo = Math.round(media/valor.size());
+			return redondeo;
 		}
 	}
 	
