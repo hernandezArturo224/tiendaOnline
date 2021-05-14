@@ -29,13 +29,12 @@
 								<span class="fa fa-star"></span>
 								<span class="fa fa-star"></span>
 							</div>
-							<span class="review-no">41 reviews</span>
 						</div>
 						<p class="product-description" th:text="${producto.descripcion}"></p>
 						<h4 class="price">Precio: <span th:text="${producto.precio}+€"></span></h4>
 						<p class="vote">Valoración media de los clientes <strong th:text="${valoracion}+' sobre 5 '"></strong></p>
 						<div class="action">
-							<a th:href="@{/putcarrito/}+${producto.id}" class="add-to-cart btn btn-default" type="button">Comprar</a>
+							<a th:href="@{/carrito/putcarrito/}+${producto.id}" class="add-to-cart btn btn-default" type="button">Comprar</a>
 						</div>
 					</div>
 				</div>

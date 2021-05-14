@@ -38,10 +38,13 @@ public class UsuariosController {
 		Provincias[] prov = Util.getProvincias();
 		
 		String mensaje = (String)model.asMap().get("mensaje");
-		
+		Usuarios user = (Usuarios)model.asMap().get("usuarios");
+		if(user == null) {
+			user = new Usuarios();
+		}
 		model.addAttribute("mensaje",mensaje);
 		model.addAttribute("provincias",prov);
-		model.addAttribute("usuarios",new Usuarios());
+		model.addAttribute("usuarios",user);
 		return "usuarios/new";
 	}
 	
@@ -58,6 +61,7 @@ public class UsuariosController {
 				
 				if(repe == null) {
 					user.setClave(StringUtilities.getEncryptedPassword(user.getClave()));
+					user.setImagen("https://ceslava.s3-accelerate.amazonaws.com/2016/04/mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png");
 					serUsuarios.guardarUsuario(user);
 					
 					if(sesion.getAttribute("user") == null) {
@@ -67,6 +71,7 @@ public class UsuariosController {
 					return "redirect:/";
 				}else {
 					redirect.addFlashAttribute("mensaje","Email: "+user.getEmail()+" está en uso");
+					redirect.addFlashAttribute("usuarios",user);
 					return "redirect:/usuarios/new";
 				}	
 			}

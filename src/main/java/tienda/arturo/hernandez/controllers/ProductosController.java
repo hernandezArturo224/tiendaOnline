@@ -83,6 +83,7 @@ public class ProductosController {
 			model.addAttribute("productos",producto);
 			return "productos/new";
 		}else {
+			producto.setImagen("https://cochesmiticos.com//wp-content/uploads/2018/08/iStock-825047116.jpg");
 			serProductos.guardarProducto(producto);
 			return "redirect:/productos";
 		}

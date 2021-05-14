@@ -33,8 +33,8 @@ public class Productos implements Serializable{
 	private String descripcion;
 	
 	
-	@Min(value=100, message="El precio mínimo es 2")
-	@Max(value=10000000, message="El precio máximo es 100")
+	@Min(value=100, message="El precio mínimo es 100")
+	@Max(value=10000000, message="El precio máximo es 100000000")
 	private double precio;
 	
 	private int stock;

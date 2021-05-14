@@ -36,24 +36,24 @@
 			</div>
 			
 			<div class="form-floating">
-				<input type="text"  class="form-control" id="email" style="margin: 5px;" name="email" th:field="*{email}" placeholder="Introduce el email"/>
+				<input type="text"  class="form-control" id="email" style="margin: 5px;" name="email" th:field="*{email}" placeholder="Introduce el email" />
 				<label for="email">Email</label>
 				<h6 th:text="${mensaje}"></h6>
 				<span class="help-block" id="email-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Errores</span>
 				
 			</div>
 			<div class="form-floating">
-				<input type="password"  id="clave" class="form-control" style="margin: 5px;" name="clave" th:field="*{clave}" placeholder="Introduce la clave"/>
+				<input type="password"  id="clave" class="form-control" style="margin: 5px;" name="clave" th:field="*{clave}" placeholder="Introduce la clave" />
 				<label for="clave">Password</label>
 				<span class="help-block" id="email-error" th:if="${#fields.hasErrors('clave')}" th:errors="*{clave}">Errores</span>
 			</div>
 			<div class="form-floating">
-				<input type="text"  id="nombre" class="form-control" style="margin: 5px;" name="nombre" th:field="*{nombre}" placeholder="Introduce el nombre"/>
+				<input type="text"  id="nombre" class="form-control" style="margin: 5px;" name="nombre" th:field="*{nombre}" placeholder="Introduce el nombre" />
 				<label for="nombre">Nombre</label>
 				<span class="help-block" id="email-error" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Errores</span>
 			</div>
 			<div class="form-floating">
-				<input type="text"  id="apellido1" class="form-control" style="margin: 5px;" name="apellido1" th:field="*{apellido1}" placeholder="Introduce el Primer Apellido"/>
+				<input type="text"  id="apellido1" class="form-control" style="margin: 5px;" name="apellido1" th:field="*{apellido1}" placeholder="Introduce el Primer Apellido" />
 				<label for="apellido1">Primer Apellido</label>
 				<span class="help-block" id="email-error" th:if="${#fields.hasErrors('apellido1')}" th:errors="*{apellido1}">Errores</span>
 			</div>

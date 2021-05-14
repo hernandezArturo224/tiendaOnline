@@ -142,6 +142,7 @@ public class IndexController {
 	public String orderPrecio(Model model) {
 		orderByPrecio();
 		log.info("Ordenando por precio");
+		redireccion = "/precio";
 		model.addAttribute("productos",productos);
 		return "index";
 	}
@@ -150,6 +151,7 @@ public class IndexController {
 	public String orderValoracion(Model model) {
 		orderByValoracion();
 		log.info("Ordenando por valoracion");
+		redireccion = "/valoracion";
 		model.addAttribute("productos",productos);
 		return "index";
 	}

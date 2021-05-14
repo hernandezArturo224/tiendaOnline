@@ -160,7 +160,7 @@ public class PerfilController {
 		
 	    try {      
 	    	//Obtenemos la instancia del archivo a utilizar
-	    	File fileLocation = new File("C:\\springWorkspace\\TIENDA_ARTURO_HERNANDEZ_NUNEZ\\src\\main\\resources\\static\\pdf\\"+pedido.getNum_factura()+".pdf");
+	    	File fileLocation = new File("C:\\springWrokspace\\TIENDA_ARTURO_HERNANDEZ_NUNEZ\\src\\main\\resources\\static\\pdf\\"+pedido.getNum_factura()+".pdf");
 	    	
 	    	writer = PdfWriter.getInstance(documento, new FileOutputStream(fileLocation));
 	    	
